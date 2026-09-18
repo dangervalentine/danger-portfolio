@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="118" height="40" viewBox="0 0 118 40">
+  <rect x="0.5" y="0.5" width="117" height="39" rx="6.5"
+        fill="#000000" stroke="#A6A6A6" stroke-width="1"/>
+  <g stroke="#FFFFFF" stroke-width="1.5" fill="none">
+    <circle cx="22" cy="20" r="10.25"/>
+    <ellipse cx="22" cy="20" rx="4.6" ry="10.25"/>
+    <line x1="11.9" y1="20" x2="32.1" y2="20"/>
+    <path d="M13.6 13.7 A 16 16 0 0 0 30.4 13.7"/>
+    <path d="M13.6 26.3 A 16 16 0 0 1 30.4 26.3"/>
+  </g>
+  <text x="41" y="17.2" fill="#FFFFFF"
+        font-family="Helvetica Neue, Helvetica, Segoe UI, Arial, sans-serif"
+        font-size="9.3" letter-spacing="0.1">Available as a</text>
+  <text x="40.4" y="32.4" fill="#FFFFFF"
+        font-family="Helvetica Neue, Helvetica, Segoe UI, Arial, sans-serif"
+        font-size="16" font-weight="700" letter-spacing="-0.3">Web App</text>
+</svg>
