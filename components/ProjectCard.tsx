@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { ProjectSource } from "@/components/ProjectSource";
 import type { Project } from "@/content/site";
 
 export function ProjectCard({
@@ -49,32 +50,22 @@ export function ProjectCard({
             project.title
           )}
         </h3>
-        <p className="mt-2 flex-1 text-muted">{project.description}</p>
-        <ul className="mt-4 flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
-            <li
-              key={tag}
-              className="rounded-md border border-edge-strong bg-raised px-2 py-0.5 font-mono text-xs text-foreground"
-            >
-              {tag}
-            </li>
-          ))}
-        </ul>
-        <div className="mt-4 font-mono text-xs">
-          {project.repoHref ? (
-            <a
-              href={project.repoHref}
-              target="_blank"
-              rel="noreferrer"
-              // Sits above the stretched link so it wins the click.
-              className="relative z-10 text-muted underline-offset-4 transition-colors hover:text-accent hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-            >
-              View source
-            </a>
-          ) : (
-            <span className="text-muted">{project.note}</span>
-          )}
+        <div className="mt-1.5">
+          <ProjectSource project={project} stretched />
         </div>
+        <p className="mt-2 flex-1 text-muted">{project.description}</p>
+        {project.tags?.length ? (
+          <ul className="mt-4 flex flex-wrap gap-2">
+            {project.tags.map((tag) => (
+              <li
+                key={tag}
+                className="rounded-md border border-edge-strong bg-raised px-2 py-0.5 font-mono text-xs text-foreground"
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </div>
     </li>
   );

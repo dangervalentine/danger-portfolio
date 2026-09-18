@@ -38,16 +38,30 @@ export const WEB_APP_BADGE: StoreLink = {
     height: 40,
 };
 
+/** One labelled row of a featured card's tech stack: a layer of the system and
+ * the technologies that build it. The grouping is the point — fifteen chips in
+ * a single row read as noise, the same fifteen under four labels read as a
+ * system with a front end, a back end and somewhere to run. */
+export type TechGroup = {
+    label: string;
+    items: string[];
+};
+
 export type Project = {
     title: string;
     description: string;
-    tags: string[];
+    /** The short chip row grid cards carry. Featured rows pass `stack`
+     * instead, which says the same thing with the layers kept apart. */
+    tags?: string[];
     /** Promotes the project out of the grid into a full-width row with room for
      * the longer copy below. Reserved for the two apps that are real efforts
      * rather than weekend builds. */
     featured?: boolean;
-    /** Second paragraph, rendered on featured rows only. */
-    blurb?: string;
+    /** The full stack, grouped by layer. Featured rows only, where it stands in
+     * for both the flat tag row and the second paragraph that used to sit here
+     * — a list of what the thing is actually made of does more for a reader
+     * than a second round of prose about what it does. */
+    stack?: TechGroup[];
     /** Where the app actually runs. Kept apart from `tags`, which describe how
      * it is built, not where it ships. */
     platforms?: string[];
@@ -82,10 +96,28 @@ export const site = {
             title: "NextQuest",
             featured: true,
             description:
-                "A game tracker for web and mobile. Track your progress, discover new titles, and curate a personal collection behind a dark interface inspired by the Night Owl theme.",
-            blurb:
-                "One backend behind two front ends: a Next.js web app and an Expo/React Native build shipping to both stores. Search across 400,000+ titles, track status and progress per platform, and keep a backlog that reflects what you will actually play next. Five of the arcade games further down this page are built into it.",
-            tags: ["Next.js", "React Native", "Expo", "TypeScript"],
+                "A game tracker for web and mobile. Track your progress, discover new titles, and keep a record of every game you have ever played — every replay, every platform, every verdict.",
+            stack: [
+                {
+                    label: "Mobile",
+                    items: ["React Native", "Expo", "Reanimated", "Skia", "SQLite"],
+                },
+                { label: "Web", items: ["Next.js", "React", "TypeScript"] },
+                {
+                    label: "Backend",
+                    items: [
+                        ".NET",
+                        "ASP.NET Core",
+                        "PostgreSQL",
+                        "Elasticsearch",
+                        "Firebase Auth",
+                    ],
+                },
+                {
+                    label: "Infrastructure",
+                    items: ["Docker", "Caddy", "Cloudflare R2"],
+                },
+            ],
             platforms: ["iOS", "Android", "Web"],
             stores: [
                 {
@@ -108,14 +140,31 @@ export const site = {
             featured: true,
             description:
                 "Density does the arithmetic of strength training so you can get on with the training. Pick a program or build your own, and it prescribes every session — the weight, the sets, the reps, and the rest between them.",
-            blurb:
-                "It tracks a training max per movement and moves it when you earn it: hit your sets and the weight climbs; miss, and it backs off and rebuilds. The library runs from 5/3/1 and StrongLifts to hypertrophy blocks and auto-regulated templates, and every set, week and progression rule stays editable. Alongside it: 873 exercises with instructions, interval and rest timers, a plate calculator and a warmup builder. No ads, no coaching upsell.",
-            tags: ["Next.js", "React Native", "TypeScript"],
+            stack: [
+                {
+                    label: "Mobile",
+                    items: ["React Native", "Expo Router", "Skia", "MMKV"],
+                },
+                { label: "Web", items: ["Next.js", "React", "Recharts"] },
+                {
+                    // Density's headline: web and native share the whole domain
+                    // layer — progression engine, analytics, editor store — not
+                    // just a utils folder.
+                    label: "Shared core",
+                    items: ["TypeScript", "npm workspaces", "Zustand", "Vitest"],
+                },
+                {
+                    label: "Backend",
+                    items: [".NET", "ASP.NET Core", "PostgreSQL", "Dapper"],
+                },
+            ],
             platforms: ["iOS", "Android", "Web"],
             // The web app is live; only the mobile builds are unreleased, so
             // both store badges render disabled while "Web app" stays active.
             stores: [APP_STORE, GOOGLE_PLAY],
             image: "/projects/density-fitness.webp",
+            imageAlt:
+                "Density Fitness promotional art: the wordmark above the line “Everything and nothing else”, beside a scatter of app cards showing a 5/3/1 session, a plate calculator, a rest timer and a glossary entry.",
             liveHref: "https://density.dangervalentine.com",
             note: "Private repository",
         },
@@ -125,6 +174,8 @@ export const site = {
                 "Smash bricks, chain combos and chase the high score — a canvas breakout with an online leaderboard, built into the NextQuest arcade.",
             tags: ["Next.js", "Canvas", "TypeScript"],
             image: "/projects/brick-blitz.webp",
+            imageAlt:
+                "Brick Blitz title art: the logo above a breakout playfield of coloured bricks and a paddle.",
             liveHref: "https://nextquest.dev/arcade/brick-blitz",
             note: "Part of NextQuest",
         },
@@ -134,6 +185,8 @@ export const site = {
                 "A Lumines-rules block puzzle: build 2×2 squares from falling two-color quads and let the sweeping timeline clear them away.",
             tags: ["Next.js", "Canvas", "TypeScript"],
             image: "/projects/luma.webp",
+            imageAlt:
+                "Luma title art: the logo above a grid of falling two-colour blocks.",
             liveHref: "https://nextquest.dev/arcade/luma",
             note: "Part of NextQuest",
         },
@@ -143,6 +196,8 @@ export const site = {
                 "The grid-based classic — eat the pellet, grow the tail, and don't bite yourself.",
             tags: ["Next.js", "Canvas", "TypeScript"],
             image: "/projects/snake.webp",
+            imageAlt:
+                "Snake title art: the logo above a pixel snake coiled on its grid.",
             liveHref: "https://nextquest.dev/arcade/snake",
             note: "Part of NextQuest",
         },
@@ -152,6 +207,8 @@ export const site = {
                 "A vector-graphics asteroids clone with hyperspace jumps, limited lives and UFOs that hunt you down.",
             tags: ["Next.js", "Canvas", "TypeScript"],
             image: "/projects/comet-blaster.webp",
+            imageAlt:
+                "Comet Blaster title art: the logo above a vector ship and the outline of a drifting asteroid.",
             liveHref: "https://nextquest.dev/arcade/comet-blaster",
             note: "Part of NextQuest",
         },
@@ -161,6 +218,8 @@ export const site = {
                 "A vertical-scrolling shoot-em-up with stalkers and shield bombs — the arcade build, with an online leaderboard.",
             tags: ["Next.js", "Canvas", "TypeScript"],
             image: "/projects/space-barrage.webp",
+            imageAlt:
+                "Space Barrage title art: the logo above a player ship and a row of descending enemy sprites.",
             liveHref: "https://nextquest.dev/arcade/space-barrage",
             note: "Part of NextQuest",
         },
@@ -170,6 +229,8 @@ export const site = {
                 "Classic four-in-a-row against a bitboard negamax AI, rendered entirely on HTML5 canvas — down to the self-playing welcome screen.",
             tags: ["React", "TypeScript", "Canvas", "Negamax"],
             image: "/projects/connect-four.webp",
+            imageAlt:
+                "A Connect Four board mid-game, discs stacked in its columns.",
             liveHref: "https://dangervalentine.github.io/react-connect4/",
             repoHref: "https://github.com/dangervalentine/react-connect4",
         },
@@ -179,6 +240,8 @@ export const site = {
                 "Extracts color palettes from an image using hybrid median-cut and k-means clustering in OKLAB perceptual space, then sorts the result into dominant, supporting and accent tiers.",
             tags: ["React", "Vite", "Canvas", "OKLAB"],
             image: "/projects/palette-provider.webp",
+            imageAlt:
+                "Palette Provider: a portrait photograph beside the grid of colours extracted from it.",
             liveHref: "https://dangervalentine.github.io/palette-provider/",
             repoHref: "https://github.com/dangervalentine/palette-provider",
         },
@@ -188,6 +251,8 @@ export const site = {
                 "Pixelate any region of an image with adjustable intensity, entirely in the browser. Drag to select, tune the pixel size live, export a PNG — nothing is ever uploaded.",
             tags: ["React", "Vite", "Canvas"],
             image: "/projects/pixelate-tool.webp",
+            imageAlt:
+                "Pixelate Tool: the same portrait photograph with the face pixelated by a dragged selection.",
             liveHref: "https://dangervalentine.github.io/pixelate-tool/",
             repoHref: "https://github.com/dangervalentine/pixelate-tool",
         },
@@ -197,6 +262,8 @@ export const site = {
                 "An entropy-ranked Wordle solver that narrows the answer list in real time, ranking each remaining word by how much information the guess would reveal.",
             tags: ["React", "TypeScript", "Information theory"],
             image: "/projects/wordle-cheater.webp",
+            imageAlt:
+                "Wordle Cheater: solved Wordle grids beside a panel confirming the answer was found.",
             liveHref: "https://dangervalentine.github.io/WordleCheater/",
             repoHref: "https://github.com/dangervalentine/WordleCheater",
         },
@@ -206,6 +273,8 @@ export const site = {
                 "A customizable, interactive scroll indicator for React Native. Tap or drag the track to jump, with an animated thumb and auto-hide behavior. Published on npm.",
             tags: ["React Native", "TypeScript", "npm"],
             image: "/projects/scroll-track.webp",
+            imageAlt:
+                "Three phone screenshots of a scrollable list with the Scroll Track indicator down the right edge.",
             liveHref: "https://www.npmjs.com/package/react-native-scroll-track",
             repoHref: "https://github.com/dangervalentine/react-native-scroll-track",
         },
@@ -215,6 +284,8 @@ export const site = {
                 "A Words With Friends helper built for my dad — type your letters and get every playable word back, grouped by length.",
             tags: ["JavaScript", "HTML", "CSS"],
             image: "/projects/words-with-js.webp",
+            imageAlt:
+                "Words With Javascript: a letter input above playable words grouped by length.",
             liveHref:
                 "https://dangervalentine.github.io/javascript-words-with-javascript/",
             repoHref:
@@ -226,6 +297,8 @@ export const site = {
                 "Tic-tac-toe against an opponent that cannot lose, driven by a minimax search over the whole game tree.",
             tags: ["JavaScript", "React", "Minimax"],
             image: "/projects/tic-tac-toe.webp",
+            imageAlt:
+                "A tic-tac-toe grid part-way through a game against the minimax opponent.",
             liveHref:
                 "https://dangervalentine.github.io/javascript-minimax-tic-tac-toe/",
             repoHref:

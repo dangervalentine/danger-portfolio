@@ -1,47 +1,9 @@
 import Image from "next/image";
 
-import { WEB_APP_BADGE, type Project, type StoreLink } from "@/content/site";
-
-/** A store badge. Live listings link out; a store with no href has no listing
- * yet and renders as inert, dimmed art rather than a link nobody can follow.
- * The badges are normalised to a common height because Apple's and Google's
- * official art ships at different aspect ratios (3.00 vs 3.40). */
-function StoreButton({ store }: { store: StoreLink }) {
-  const badge = (
-    <Image
-      src={store.badge}
-      alt={store.href ? store.label : `${store.label} — coming soon`}
-      width={store.width}
-      height={store.height}
-      // These are small, fixed-size line art with fine text. Running them
-      // through the optimizer resamples to a width that matches neither the
-      // source nor the display size and then re-encodes lossily, which visibly
-      // smears the lettering. Serving the PNG untouched is both sharper and
-      // smaller than the optimizer's output at this size.
-      unoptimized
-      className="h-10 w-auto"
-    />
-  );
-
-  if (!store.href) {
-    return (
-      <span className="inline-flex cursor-not-allowed opacity-40 grayscale">
-        {badge}
-      </span>
-    );
-  }
-
-  return (
-    <a
-      href={store.href}
-      target="_blank"
-      rel="noreferrer"
-      className="inline-flex rounded-lg transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-    >
-      {badge}
-    </a>
-  );
-}
+import { ProjectSource } from "@/components/ProjectSource";
+import { StoreButton } from "@/components/StoreButton";
+import { TechStack } from "@/components/TechStack";
+import { WEB_APP_BADGE, type Project } from "@/content/site";
 
 export function FeaturedProject({
   project,
@@ -50,34 +12,36 @@ export function FeaturedProject({
   project: Project;
   priority?: boolean;
 }) {
-  // Derived from the same data as the badges so the two cannot disagree. This
-  // says nothing about the web app, which can be live while the mobile builds
-  // are still unreleased — hence "Mobile apps", not a bare "Coming soon".
-  const mobileComingSoon =
-    !!project.stores?.length && project.stores.every((s) => !s.href);
-
   return (
     <li className="overflow-hidden rounded-lg border border-edge-strong bg-surface">
-      <div className="lg:grid lg:grid-cols-12 lg:items-stretch">
-        {/* The cell stretches so its divider runs the full height of the row,
-            but the art inside keeps its own 16:9 and centres in that space.
-            Letting the image stretch instead would crop these compositions,
-            which are designed pieces rather than screenshots. */}
-        <div className="flex border-b border-edge bg-background lg:col-span-5 lg:border-b-0 lg:border-r">
-          <div className="relative aspect-video w-full lg:my-auto">
+      {/* Three children, two rows. The left column stacks art over the store
+          buttons; the text panel spans both rows on the right.
+
+          The art used to sit centred in a cell stretched to the panel's full
+          height, which left ~190px of background above and below it — 42% of
+          the cell, and worse once the tech stack made the panel taller. Rather
+          than crop these compositions (they are designed pieces, not
+          screenshots) or shrink them, the buttons move into that space: they
+          belong with the app art anyway.
+
+          DOM order is art → text → buttons, which is also the right reading
+          order when the grid collapses to a single column below lg. */}
+      <div className="lg:grid lg:grid-cols-12">
+        <div className="border-b border-edge bg-background lg:col-span-6 lg:col-start-1 lg:row-start-1 lg:border-b-0 lg:border-r">
+          <div className="relative aspect-video w-full">
             <Image
               src={project.image}
               alt={project.imageAlt ?? project.title}
               fill
-              // Just under half the 1152px shell on desktop, full bleed below it.
-              sizes="(min-width: 1024px) 480px, 100vw"
+              // Half the 1152px shell on desktop, full bleed below it.
+              sizes="(min-width: 1024px) 576px, 100vw"
               priority={priority}
               className="object-cover"
             />
           </div>
         </div>
 
-        <div className="flex flex-col p-6 lg:col-span-7 lg:p-8">
+        <div className="flex flex-col p-6 lg:col-span-6 lg:col-start-7 lg:row-start-1 lg:row-span-2 lg:p-8">
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
             <h3 className="text-2xl font-bold tracking-tight text-heading sm:text-3xl">
               {project.liveHref ? (
@@ -100,53 +64,45 @@ export function FeaturedProject({
             ) : null}
           </div>
 
+          <div className="mt-2">
+            <ProjectSource project={project} />
+          </div>
+
           <p className="mt-3 text-foreground">{project.description}</p>
-          {project.blurb ? (
-            <p className="mt-3 text-sm text-muted">{project.blurb}</p>
+
+          {/* The stack panel stands in for the flat tag row on these two rows:
+              a featured project has the space to name every layer, and naming
+              them is the whole reason it is featured. Grid cards keep `tags`. */}
+          {project.stack?.length ? (
+            <TechStack groups={project.stack} />
+          ) : project.tags?.length ? (
+            <ul className="mt-5 flex flex-wrap gap-2">
+              {project.tags.map((tag) => (
+                <li
+                  key={tag}
+                  className="rounded-md border border-edge-strong bg-raised px-2 py-0.5 font-mono text-xs text-foreground"
+                >
+                  {tag}
+                </li>
+              ))}
+            </ul>
           ) : null}
 
-          <ul className="mt-5 flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <li
-                key={tag}
-                className="rounded-md border border-edge-strong bg-raised px-2 py-0.5 font-mono text-xs text-foreground"
-              >
-                {tag}
-              </li>
-            ))}
-          </ul>
+        </div>
 
-          {/* mt-auto pins the actions to the bottom so both rows line up even
-              when one has more copy than the other. */}
-          <div className="mt-auto pt-6">
-            <div className="flex flex-wrap items-center gap-3">
-              {project.stores?.map((store) => (
-                <StoreButton key={store.label} store={store} />
-              ))}
-              {project.liveHref ? (
-                <StoreButton
-                  store={{ ...WEB_APP_BADGE, href: project.liveHref }}
-                />
-              ) : null}
-              {project.repoHref ? (
-                <a
-                  href={project.repoHref}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="font-mono text-xs text-muted underline-offset-4 transition-colors hover:text-accent hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-                >
-                  View source
-                </a>
-              ) : (
-                <span className="font-mono text-xs text-muted">
-                  {project.note}
-                </span>
-              )}
-            </div>
-            {mobileComingSoon ? (
-              <p className="mt-3 font-mono text-xs text-accent-alt">
-                Mobile apps coming soon
-              </p>
+        {/* Left column, row 2 — directly under the art. `lg:bg-background`
+            only: on a narrow screen this is just the last block of the card
+            and should stay on the card's own surface. */}
+        <div className="px-6 pb-6 lg:col-span-6 lg:col-start-1 lg:row-start-2 lg:border-r lg:border-edge lg:bg-background lg:p-8 lg:pt-6">
+          {/* Buttons only. An unreleased store now says so on its own badge,
+              on hover or tap — see StoreButton — instead of a standing line of
+              text under the row. */}
+          <div className="flex flex-wrap items-center gap-3">
+            {project.stores?.map((store) => (
+              <StoreButton key={store.label} store={store} />
+            ))}
+            {project.liveHref ? (
+              <StoreButton store={{ ...WEB_APP_BADGE, href: project.liveHref }} />
             ) : null}
           </div>
         </div>
