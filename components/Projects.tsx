@@ -11,7 +11,9 @@ export function Projects() {
       <ul className="grid gap-6 sm:grid-cols-2">
         {site.projects.map((project) => (
           <li
-            key={project.title}
+            // Key on the destination — titles can collide when a project ships
+            // both standalone and as part of another app.
+            key={project.liveHref ?? project.title}
             className="group relative flex h-full flex-col overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 transition-colors focus-within:border-accent hover:border-accent"
           >
             <div className="relative aspect-video border-b border-zinc-800 bg-zinc-950">

@@ -22,6 +22,7 @@ export const site = {
     tagline: "Senior Software Developer",
     email: "victordvalentine@gmail.com",
     projects: [
+
         {
             title: "NextQuest",
             description:
@@ -77,6 +78,24 @@ export const site = {
             note: "Part of NextQuest",
         },
         {
+            title: "Space Barrage",
+            description:
+                "A vertical-scrolling shoot-em-up with stalkers and shield bombs — the arcade build, with an online leaderboard.",
+            tags: ["Next.js", "Canvas", "TypeScript"],
+            image: "/projects/space-barrage.webp",
+            liveHref: "https://nextquest.dev/arcade/space-barrage",
+            note: "Part of NextQuest",
+        },
+        {
+            title: "Connect Four",
+            description:
+                "Classic four-in-a-row against a bitboard negamax AI, rendered entirely on HTML5 canvas — down to the self-playing welcome screen.",
+            tags: ["React", "TypeScript", "Canvas", "Negamax"],
+            image: "/projects/connect-four.webp",
+            liveHref: "https://dangervalentine.github.io/react-connect4/",
+            repoHref: "https://github.com/dangervalentine/react-connect4",
+        },
+        {
             title: "Palette Provider",
             description:
                 "Extracts color palettes from an image using hybrid median-cut and k-means clustering in OKLAB perceptual space, then sorts the result into dominant, supporting and accent tiers.",
@@ -93,24 +112,6 @@ export const site = {
             image: "/projects/pixelate-tool.webp",
             liveHref: "https://dangervalentine.github.io/pixelate-tool/",
             repoHref: "https://github.com/dangervalentine/pixelate-tool",
-        },
-        {
-            title: "Connect Four",
-            description:
-                "Classic four-in-a-row against a bitboard negamax AI, rendered entirely on HTML5 canvas — down to the self-playing welcome screen.",
-            tags: ["React", "TypeScript", "Canvas", "Negamax"],
-            image: "/projects/connect-four.webp",
-            liveHref: "https://dangervalentine.github.io/react-connect4/",
-            repoHref: "https://github.com/dangervalentine/react-connect4",
-        },
-        {
-            title: "Space Barrage",
-            description:
-                "A pixel-art space shooter with escalating waves, squid stalkers and shield pickups, wrapped in a retro arcade cabinet. Canvas-rendered with particle effects and full touch and keyboard support.",
-            tags: ["React", "TypeScript", "Canvas", "Vite"],
-            image: "/projects/space-barrage.webp",
-            liveHref: "https://dangervalentine.github.io/react-space-barrage/",
-            repoHref: "https://github.com/dangervalentine/react-space-barrage",
         },
         {
             title: "Wordle Cheater",
