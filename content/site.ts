@@ -2,8 +2,9 @@ export type Project = {
     title: string;
     description: string;
     tags: string[];
-    /** Screenshot shown in the card's image band, relative to /public. */
-    image?: string;
+    /** Screenshot shown in the card's image band, relative to /public. Every
+     * project has one, so the card renders it unconditionally. */
+    image: string;
     /** The published/live version. The whole card links here. */
     liveHref?: string;
     /** Source repository, shown as a small secondary link. */

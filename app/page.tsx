@@ -12,7 +12,7 @@ export default function Home() {
         <Projects />
         <Contact />
       </main>
-      <footer className="mx-auto w-full max-w-5xl px-6 py-8 font-mono text-xs text-zinc-500">
+      <footer className="mx-auto w-full max-w-6xl border-t border-edge px-6 py-8 font-mono text-xs text-muted">
         &copy; {new Date().getFullYear()} Victor Danger Valentine
       </footer>
     </>
