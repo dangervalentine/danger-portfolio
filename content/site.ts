@@ -82,6 +82,13 @@ export type Project = {
     /** Describes the image when it is not a plain screenshot — several cards
      * now use the project's own promotional art. */
     imageAlt?: string;
+    /** A square recomposition of `image`, used by featured rows from lg up.
+     * There the art fills a column whose height is set by the text beside it,
+     * which ranges from slightly taller than square at 1024px to half again as
+     * wide at 1440px — a 16:9 frame either leaves the column half empty or
+     * loses half its width to the crop. Only fetched at those widths, so a
+     * phone still downloads `image` alone. */
+    imageSquare?: string;
     /** The published/live version. The whole card links here. */
     liveHref?: string;
     /** Source repository, shown as a small secondary link. */
@@ -139,6 +146,7 @@ export const site = {
                 },
             ],
             image: "/projects/nextquest.webp",
+            imageSquare: "/projects/nextquest-square.webp",
             imageAlt:
                 "NextQuest promotional art: the wordmark beside the line “Every game, one place.” over a grid of game cover art.",
             liveHref: "https://nextquest.dev/",
@@ -172,6 +180,7 @@ export const site = {
             // both store badges render disabled while "Web app" stays active.
             stores: [APP_STORE, GOOGLE_PLAY],
             image: "/projects/density-fitness.webp",
+            imageSquare: "/projects/density-fitness-square.webp",
             imageAlt:
                 "Density Fitness promotional art: the wordmark above the line “Everything and nothing else”, beside a scatter of app cards showing a 5/3/1 session, a plate calculator, a rest timer and a glossary entry.",
             liveHref: "https://density.dangervalentine.com",

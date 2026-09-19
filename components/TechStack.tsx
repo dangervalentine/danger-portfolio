@@ -19,12 +19,27 @@ export function TechStack({ groups }: { groups: TechGroup[] }) {
             <dt className="font-mono text-xs text-accent sm:w-28 sm:shrink-0">
               {group.label}
             </dt>
-            <dd className="mt-1.5 sm:mt-0">
+            {/* `sm:flex-1`: as a flex item the chip list would otherwise be
+                sized to its own content, so a three-chip layer ended up with a
+                much narrower row than a five-chip one and the layers no longer
+                lined up. Every layer gets the panel's full width. */}
+            <dd className="mt-1.5 min-w-0 sm:mt-0 sm:flex-1">
+              {/* Chips are justified, not ragged. Chip widths vary by a factor
+                  of three ("Skia" against "ASP.NET Core"), and at their natural
+                  widths the rows ended at three different places and read as
+                  clutter. `grow basis-26` instead packs each row with as many
+                  chips as fit at ~6.5rem and then shares the leftover width
+                  between them, so every row ends flush with the panel.
+
+                  A basis rather than a grid track count because the panel's
+                  width changes twice (full-bleed on a phone, half the card on
+                  a wide screen) and a chip never shrinks below its text — the
+                  row count follows the space available. */}
               <ul className="flex flex-wrap gap-2">
                 {group.items.map((item) => (
                   <li
                     key={item}
-                    className="rounded-md border border-edge-strong bg-raised px-2 py-0.5 font-mono text-xs text-foreground"
+                    className="grow basis-26 rounded-md border border-edge-strong bg-raised px-2 py-1 text-center font-mono text-xs whitespace-nowrap text-foreground"
                   >
                     {item}
                   </li>

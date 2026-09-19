@@ -45,7 +45,7 @@ export function StoreButton({ store }: { store: StoreLink }) {
       // smears the lettering. Serving the PNG untouched is both sharper and
       // smaller than the optimizer's output at this size.
       unoptimized
-      className="h-10 w-auto"
+      className="h-10 w-auto lg:h-12"
     />
   );
 
