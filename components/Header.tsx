@@ -1,3 +1,4 @@
+import { SocialLinks } from "@/components/SocialLinks";
 import { site } from "@/content/site";
 
 export function Header() {
@@ -9,6 +10,9 @@ export function Header() {
       </h1>
       {/* Sans, not mono — this is a subtitle, not a label. */}
       <p className="mt-4 text-lg text-muted sm:text-xl">{site.tagline}</p>
+      {/* Pulled back by the icons' own hit-area padding so the first mark
+          lines up with the left edge of the name above it. */}
+      <SocialLinks className="mt-6 -ml-1" />
     </header>
   );
 }
