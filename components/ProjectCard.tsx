@@ -31,6 +31,16 @@ export function ProjectCard({
           // only ever appears on the top and sides.
           className="origin-bottom scale-95 object-cover transition-transform duration-300 ease-out group-hover:scale-100 group-focus-within:scale-100 motion-reduce:transition-none"
         />
+        {project.kind ? (
+          // Sits over the art rather than in the body: it answers "what is
+          // this" before the eye reaches the title, and it stays out of the
+          // tech-chip row, which answers a different question. The panel
+          // background is opaque enough to stay legible over promotional art
+          // of any colour.
+          <span className="absolute right-3 top-3 rounded-md border border-edge-strong bg-surface/90 px-2 py-0.5 font-mono text-xs uppercase tracking-wide text-accent backdrop-blur-sm">
+            {project.kind}
+          </span>
+        ) : null}
       </div>
       <div className="flex flex-1 flex-col p-6">
         <h3 className="text-xl font-semibold text-heading">

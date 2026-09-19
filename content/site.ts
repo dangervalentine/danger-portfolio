@@ -47,9 +47,18 @@ export type TechGroup = {
     items: string[];
 };
 
+/** What the thing *is*, as opposed to what it is built with. Grid cards carry
+ * one of these over the thumbnail so a reader can sort a dozen cards at a
+ * glance without reading a dozen descriptions. Featured rows don't need it —
+ * they have the room to say so themselves. Add a value here when a project
+ * genuinely isn't one of these; the chip renders whatever it is given. */
+export type ProjectKind = "Game" | "Tool" | "Package";
+
 export type Project = {
     title: string;
     description: string;
+    /** Grid cards only. */
+    kind?: ProjectKind;
     /** The short chip row grid cards carry. Featured rows pass `stack`
      * instead, which says the same thing with the layers kept apart. */
     tags?: string[];
@@ -170,6 +179,7 @@ export const site = {
         },
         {
             title: "Brick Blitz",
+            kind: "Game",
             description:
                 "Smash bricks, chain combos and chase the high score — a canvas breakout with an online leaderboard, built into the NextQuest arcade.",
             tags: ["Next.js", "Canvas", "TypeScript"],
@@ -181,6 +191,7 @@ export const site = {
         },
         {
             title: "Luma",
+            kind: "Game",
             description:
                 "A Lumines-rules block puzzle: build 2×2 squares from falling two-color quads and let the sweeping timeline clear them away.",
             tags: ["Next.js", "Canvas", "TypeScript"],
@@ -192,6 +203,7 @@ export const site = {
         },
         {
             title: "Snake",
+            kind: "Game",
             description:
                 "The grid-based classic — eat the pellet, grow the tail, and don't bite yourself.",
             tags: ["Next.js", "Canvas", "TypeScript"],
@@ -203,6 +215,7 @@ export const site = {
         },
         {
             title: "Comet Blaster",
+            kind: "Game",
             description:
                 "A vector-graphics asteroids clone with hyperspace jumps, limited lives and UFOs that hunt you down.",
             tags: ["Next.js", "Canvas", "TypeScript"],
@@ -214,6 +227,7 @@ export const site = {
         },
         {
             title: "Space Barrage",
+            kind: "Game",
             description:
                 "A vertical-scrolling shoot-em-up with stalkers and shield bombs — the arcade build, with an online leaderboard.",
             tags: ["Next.js", "Canvas", "TypeScript"],
@@ -225,17 +239,19 @@ export const site = {
         },
         {
             title: "Connect Four",
+            kind: "Game",
             description:
                 "Classic four-in-a-row against a bitboard negamax AI, rendered entirely on HTML5 canvas — down to the self-playing welcome screen.",
             tags: ["React", "TypeScript", "Canvas", "Negamax"],
             image: "/projects/connect-four.webp",
             imageAlt:
-                "A Connect Four board mid-game, discs stacked in its columns.",
+                "Connect Four title art: the wordmark CONNECT 4 in white above a mint rule and the line \"Minimax AI · React 19\", beside a dark slate board on its splayed stand holding a mid-game pyramid of glossy coral and mint discs, with CONNECT4 moulded in gold across its base.",
             liveHref: "https://dangervalentine.github.io/react-connect4/",
             repoHref: "https://github.com/dangervalentine/react-connect4",
         },
         {
             title: "Palette Provider",
+            kind: "Tool",
             description:
                 "Extracts color palettes from an image using hybrid median-cut and k-means clustering in OKLAB perceptual space, then sorts the result into dominant, supporting and accent tiers.",
             tags: ["React", "Vite", "Canvas", "OKLAB"],
@@ -247,6 +263,7 @@ export const site = {
         },
         {
             title: "Pixelate Tool",
+            kind: "Tool",
             description:
                 "Pixelate any region of an image with adjustable intensity, entirely in the browser. Drag to select, tune the pixel size live, export a PNG — nothing is ever uploaded.",
             tags: ["React", "Vite", "Canvas"],
@@ -258,6 +275,7 @@ export const site = {
         },
         {
             title: "Wordle Cheater",
+            kind: "Tool",
             description:
                 "An entropy-ranked Wordle solver that narrows the answer list in real time, ranking each remaining word by how much information the guess would reveal.",
             tags: ["React", "TypeScript", "Information theory"],
@@ -269,6 +287,7 @@ export const site = {
         },
         {
             title: "Scroll Track",
+            kind: "Package",
             description:
                 "A customizable, interactive scroll indicator for React Native. Tap or drag the track to jump, with an animated thumb and auto-hide behavior. Published on npm.",
             tags: ["React Native", "TypeScript", "npm"],
@@ -280,12 +299,13 @@ export const site = {
         },
         {
             title: "Words with JavaScript",
+            kind: "Tool",
             description:
                 "A Words With Friends helper built for my dad — type your letters and get every playable word back, grouped by length.",
             tags: ["JavaScript", "HTML", "CSS"],
             image: "/projects/words-with-js.webp",
             imageAlt:
-                "Words With Javascript: a letter input above playable words grouped by length.",
+                "Words with JavaScript title art: the wordmark above a rack of mint letter tiles spelling REALLY, with three panels listing the six-, five- and four-letter words those tiles can play.",
             liveHref:
                 "https://dangervalentine.github.io/javascript-words-with-javascript/",
             repoHref:
@@ -293,16 +313,31 @@ export const site = {
         },
         {
             title: "Tic-Tac-Toe — Minimax",
+            kind: "Game",
             description:
                 "Tic-tac-toe against an opponent that cannot lose, driven by a minimax search over the whole game tree.",
             tags: ["JavaScript", "React", "Minimax"],
             image: "/projects/tic-tac-toe.webp",
             imageAlt:
-                "A tic-tac-toe grid part-way through a game against the minimax opponent.",
+                "Tic-Tac-Toe — Minimax title art: the wordmark TIC TAC TOE above a raised board panel holding a finished drawn game of five mint X marks and four coral O marks, each casting a soft shadow, with a faint search tree of miniature boards branching to scored leaves on either side and the line \"You cannot win · you can only draw\" beneath.",
             liveHref:
                 "https://dangervalentine.github.io/javascript-minimax-tic-tac-toe/",
             repoHref:
                 "https://github.com/dangervalentine/javascript-minimax-tic-tac-toe",
+        },
+        {
+            title: "Simon Says",
+            kind: "Game",
+            description:
+                "The memory classic: watch the console play a sequence, then repeat it back as it grows a step longer each round. Three pad colour schemes hidden behind the wordmark.",
+            tags: ["React", "Redux", "CSS"],
+            image: "/projects/simon-says.webp",
+            imageAlt:
+                "Simon Says title art: the wordmark SIMON above SAYS in mint, beside a dark circular console with four coral, amber, mint and violet quadrant pads around a centre dial showing a lit score readout and a start switch.",
+            liveHref:
+                "https://dangervalentine.github.io/react-redux-simon-says/",
+            repoHref:
+                "https://github.com/dangervalentine/react-redux-simon-says",
         },
     ] satisfies Project[],
     contact: [
