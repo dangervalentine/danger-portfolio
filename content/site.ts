@@ -1,3 +1,23 @@
+import type { StaticImageData } from "next/image";
+
+import brickBlitzImg from "@/public/projects/brick-blitz.webp";
+import cometBlasterImg from "@/public/projects/comet-blaster.webp";
+import connectFourImg from "@/public/projects/connect-four.webp";
+import densityFitnessImg from "@/public/projects/density-fitness.webp";
+import densityFitnessSquareImg from "@/public/projects/density-fitness-square.webp";
+import lumaImg from "@/public/projects/luma.webp";
+import nextquestImg from "@/public/projects/nextquest.webp";
+import nextquestSquareImg from "@/public/projects/nextquest-square.webp";
+import paletteProviderImg from "@/public/projects/palette-provider.webp";
+import pixelateToolImg from "@/public/projects/pixelate-tool.webp";
+import scrollTrackImg from "@/public/projects/scroll-track.webp";
+import simonSaysImg from "@/public/projects/simon-says.webp";
+import snakeImg from "@/public/projects/snake.webp";
+import spaceBarrageImg from "@/public/projects/space-barrage.webp";
+import ticTacToeImg from "@/public/projects/tic-tac-toe.webp";
+import wordleCheaterImg from "@/public/projects/wordle-cheater.webp";
+import wordsWithJsImg from "@/public/projects/words-with-js.webp";
+
 /** One app-store badge. A link with no `href` has no listing yet and renders
  * disabled, so a store can never be live and "coming soon" at the same time.
  * `width`/`height` are the badge art's intrinsic size; the buttons normalise
@@ -76,9 +96,11 @@ export type Project = {
     platforms?: string[];
     /** Store buttons, featured rows only. */
     stores?: StoreLink[];
-    /** Image shown in the card's band, relative to /public. Every project has
-     * one, so the card renders it unconditionally. */
-    image: string;
+    /** Image shown in the card's band. Every project has one, so the card
+     * renders it unconditionally. A static import rather than a /public path:
+     * the build fingerprints the file, so replacing the art changes its URL and
+     * neither the image optimizer's cache nor Cloudflare can serve the old one. */
+    image: StaticImageData;
     /** Describes the image when it is not a plain screenshot — several cards
      * now use the project's own promotional art. */
     imageAlt?: string;
@@ -88,7 +110,7 @@ export type Project = {
      * wide at 1440px — a 16:9 frame either leaves the column half empty or
      * loses half its width to the crop. Only fetched at those widths, so a
      * phone still downloads `image` alone. */
-    imageSquare?: string;
+    imageSquare?: StaticImageData;
     /** The published/live version. The whole card links here. */
     liveHref?: string;
     /** Source repository, shown as a small secondary link. */
@@ -145,8 +167,8 @@ export const site = {
                     href: "https://play.google.com/store/apps/details?id=com.dangervalentine.nextquest",
                 },
             ],
-            image: "/projects/nextquest.webp",
-            imageSquare: "/projects/nextquest-square.webp",
+            image: nextquestImg,
+            imageSquare: nextquestSquareImg,
             imageAlt:
                 "NextQuest promotional art: the wordmark beside the line “Every game, one place.” over a grid of game cover art.",
             liveHref: "https://nextquest.dev/",
@@ -179,8 +201,8 @@ export const site = {
             // The web app is live; only the mobile builds are unreleased, so
             // both store badges render disabled while "Web app" stays active.
             stores: [APP_STORE, GOOGLE_PLAY],
-            image: "/projects/density-fitness.webp",
-            imageSquare: "/projects/density-fitness-square.webp",
+            image: densityFitnessImg,
+            imageSquare: densityFitnessSquareImg,
             imageAlt:
                 "Density Fitness promotional art: the wordmark above the line “Everything and nothing else”, beside a scatter of app cards showing a 5/3/1 session, a plate calculator, a rest timer and a glossary entry.",
             liveHref: "https://density.dangervalentine.com",
@@ -192,7 +214,7 @@ export const site = {
             description:
                 "Smash bricks, chain combos and chase the high score — a canvas breakout with an online leaderboard, built into the NextQuest arcade.",
             tags: ["Next.js", "Canvas", "TypeScript"],
-            image: "/projects/brick-blitz.webp",
+            image: brickBlitzImg,
             imageAlt:
                 "Brick Blitz title art: the logo above a breakout playfield of coloured bricks and a paddle.",
             liveHref: "https://nextquest.dev/arcade/brick-blitz",
@@ -204,7 +226,7 @@ export const site = {
             description:
                 "A Lumines-rules block puzzle: build 2×2 squares from falling two-color quads and let the sweeping timeline clear them away.",
             tags: ["Next.js", "Canvas", "TypeScript"],
-            image: "/projects/luma.webp",
+            image: lumaImg,
             imageAlt:
                 "Luma title art: the logo above a grid of falling two-colour blocks.",
             liveHref: "https://nextquest.dev/arcade/luma",
@@ -216,7 +238,7 @@ export const site = {
             description:
                 "The grid-based classic — eat the pellet, grow the tail, and don't bite yourself.",
             tags: ["Next.js", "Canvas", "TypeScript"],
-            image: "/projects/snake.webp",
+            image: snakeImg,
             imageAlt:
                 "Snake title art: the logo above a pixel snake coiled on its grid.",
             liveHref: "https://nextquest.dev/arcade/snake",
@@ -228,7 +250,7 @@ export const site = {
             description:
                 "A vector-graphics asteroids clone with hyperspace jumps, limited lives and UFOs that hunt you down.",
             tags: ["Next.js", "Canvas", "TypeScript"],
-            image: "/projects/comet-blaster.webp",
+            image: cometBlasterImg,
             imageAlt:
                 "Comet Blaster title art: the logo above a vector ship and the outline of a drifting asteroid.",
             liveHref: "https://nextquest.dev/arcade/comet-blaster",
@@ -240,7 +262,7 @@ export const site = {
             description:
                 "A vertical-scrolling shoot-em-up with stalkers and shield bombs — the arcade build, with an online leaderboard.",
             tags: ["Next.js", "Canvas", "TypeScript"],
-            image: "/projects/space-barrage.webp",
+            image: spaceBarrageImg,
             imageAlt:
                 "Space Barrage title art: the logo above a player ship and a row of descending enemy sprites.",
             liveHref: "https://nextquest.dev/arcade/space-barrage",
@@ -252,7 +274,7 @@ export const site = {
             description:
                 "Classic four-in-a-row against a bitboard negamax AI, rendered entirely on HTML5 canvas — down to the self-playing welcome screen.",
             tags: ["React", "TypeScript", "Canvas", "Negamax"],
-            image: "/projects/connect-four.webp",
+            image: connectFourImg,
             imageAlt:
                 "Connect Four title art: the wordmark CONNECT 4 in white above a mint rule and the line \"Minimax AI · React 19\", beside a dark slate board on its splayed stand holding a mid-game pyramid of glossy coral and mint discs, with CONNECT4 moulded in gold across its base.",
             liveHref: "https://dangervalentine.github.io/react-connect4/",
@@ -264,7 +286,7 @@ export const site = {
             description:
                 "Extracts color palettes from an image using hybrid median-cut and k-means clustering in OKLAB perceptual space, then sorts the result into dominant, supporting and accent tiers.",
             tags: ["React", "Vite", "Canvas", "OKLAB"],
-            image: "/projects/palette-provider.webp",
+            image: paletteProviderImg,
             imageAlt:
                 "Palette Provider: a portrait photograph beside the grid of colours extracted from it.",
             liveHref: "https://dangervalentine.github.io/palette-provider/",
@@ -276,7 +298,7 @@ export const site = {
             description:
                 "Pixelate any region of an image with adjustable intensity, entirely in the browser. Drag to select, tune the pixel size live, export a PNG — nothing is ever uploaded.",
             tags: ["React", "Vite", "Canvas"],
-            image: "/projects/pixelate-tool.webp",
+            image: pixelateToolImg,
             imageAlt:
                 "Pixelate Tool: the same portrait photograph with the face pixelated by a dragged selection.",
             liveHref: "https://dangervalentine.github.io/pixelate-tool/",
@@ -288,7 +310,7 @@ export const site = {
             description:
                 "An entropy-ranked Wordle solver that narrows the answer list in real time, ranking each remaining word by how much information the guess would reveal.",
             tags: ["React", "TypeScript", "Information theory"],
-            image: "/projects/wordle-cheater.webp",
+            image: wordleCheaterImg,
             imageAlt:
                 "Wordle Cheater: solved Wordle grids beside a panel confirming the answer was found.",
             liveHref: "https://dangervalentine.github.io/WordleCheater/",
@@ -300,7 +322,7 @@ export const site = {
             description:
                 "A customizable, interactive scroll indicator for React Native. Tap or drag the track to jump, with an animated thumb and auto-hide behavior. Published on npm.",
             tags: ["React Native", "TypeScript", "npm"],
-            image: "/projects/scroll-track.webp",
+            image: scrollTrackImg,
             imageAlt:
                 "react-native-scroll-track title art: the wordmark above a list tile with a mint scroll thumb on its track, a tap ripple further down the track with a dashed line showing the jump, and a faint compressed column beside it bracketing where the visible rows sit in the whole list.",
             liveHref: "https://www.npmjs.com/package/react-native-scroll-track",
@@ -312,7 +334,7 @@ export const site = {
             description:
                 "A Words With Friends helper built for my dad — type your letters and get every playable word back, grouped by length.",
             tags: ["JavaScript", "HTML", "CSS"],
-            image: "/projects/words-with-js.webp",
+            image: wordsWithJsImg,
             imageAlt:
                 "Words with JavaScript title art: the wordmark above a rack of mint letter tiles spelling REALLY, with three panels listing the six-, five- and four-letter words those tiles can play.",
             liveHref:
@@ -326,7 +348,7 @@ export const site = {
             description:
                 "Tic-tac-toe against an opponent that cannot lose, driven by a minimax search over the whole game tree.",
             tags: ["JavaScript", "React", "Minimax"],
-            image: "/projects/tic-tac-toe.webp",
+            image: ticTacToeImg,
             imageAlt:
                 "Tic-Tac-Toe — Minimax title art: the wordmark TIC TAC TOE above a raised board panel holding a finished drawn game of five mint X marks and four coral O marks, each casting a soft shadow, with a faint search tree of miniature boards branching to scored leaves on either side and the line \"You cannot win · you can only draw\" beneath.",
             liveHref:
@@ -340,7 +362,7 @@ export const site = {
             description:
                 "The memory classic: watch the console play a sequence, then repeat it back as it grows a step longer each round. Three pad colour schemes hidden behind the wordmark.",
             tags: ["React", "Redux", "CSS"],
-            image: "/projects/simon-says.webp",
+            image: simonSaysImg,
             imageAlt:
                 "Simon Says title art: the wordmark SIMON above SAYS in mint, beside a dark circular console with four coral, amber, mint and violet quadrant pads around a centre dial showing a lit score readout and a start switch.",
             liveHref:
