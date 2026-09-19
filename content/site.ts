@@ -302,7 +302,7 @@ export const site = {
             tags: ["React Native", "TypeScript", "npm"],
             image: "/projects/scroll-track.webp",
             imageAlt:
-                "Three phone screenshots of a scrollable list with the Scroll Track indicator down the right edge.",
+                "react-native-scroll-track title art: the wordmark above a list tile with a mint scroll thumb on its track, a tap ripple further down the track with a dashed line showing the jump, and a faint compressed column beside it bracketing where the visible rows sit in the whole list.",
             liveHref: "https://www.npmjs.com/package/react-native-scroll-track",
             repoHref: "https://github.com/dangervalentine/react-native-scroll-track",
         },
