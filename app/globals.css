@@ -1,0 +1,241 @@
+@import "tailwindcss";
+
+/*
+ * Palette sampled from the project screenshots themselves — they already share
+ * one system (Night Owl, which NextQuest is built on): #011627 ground,
+ * #7fdbca mint, #82aaff blue. The page frame now uses the same colors as the
+ * work inside it instead of a neutral zinc scale.
+ */
+:root {
+  --background: #011627;
+  --surface: #0a1d30;
+  --raised: #122a3d;
+  --edge: #1d3b53;
+  --edge-strong: #2c4f6b;
+
+  /* One step below --surface. The diagram bands on the case-study pages are
+     containers for cards, so they have to recede behind the cards they hold;
+     --surface would give band and box the same weight and the grouping would
+     stop reading. */
+  --band: #081f31;
+
+  --foreground: #d6deeb;
+  --heading: #ffffff;
+  --muted: #8badc1;
+
+  --accent: #7fdbca;
+  --accent-alt: #82aaff;
+
+  /* Controls.
+   *
+   * Every pressable thing on the site that is not a store badge shares one
+   * plate: --raised at rest, --edge lit on hover. Two named steps rather than
+   * two more hexes, because the whole point of the skin is that a button is
+   * the page's own surface picked up off the page, not a separate colour.
+   *
+   * The shadows are where the dimension actually comes from. Each is three
+   * layers: an inset hairline along the top edge that reads as light catching
+   * a lip, a tight contact shadow that sits the plate on the page, and a
+   * wider cast shadow for depth. The hover shadow adds a fourth — a mint
+   * bloom under the button, the accent arriving as light rather than as
+   * another coloured border.
+   *
+   * The lip is mint-tinted, not white: a neutral highlight on a navy plate
+   * reads grey, and grey is the one thing this palette does not contain. */
+  --shadow-control: inset 0 1px 0 0 rgb(127 219 202 / 0.1), 0 1px 1px 0 rgb(1 10 23 / 0.5),
+    0 3px 8px -3px rgb(1 10 23 / 0.9);
+  --shadow-control-hover: inset 0 1px 0 0 rgb(127 219 202 / 0.18), 0 1px 1px 0 rgb(1 10 23 / 0.5),
+    0 10px 20px -8px rgb(0 0 0 / 0.95), 0 0 22px -6px rgb(127 219 202 / 0.45);
+  /* Pressed: the light goes out and the plate takes the shadow instead. */
+  --shadow-control-active: inset 0 2px 4px 0 rgb(1 10 23 / 0.75);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-edge: var(--edge);
+  --color-edge-strong: var(--edge-strong);
+  --color-band: var(--band);
+
+  --color-foreground: var(--foreground);
+  --color-heading: var(--heading);
+  --color-muted: var(--muted);
+
+  --color-accent: var(--accent);
+  --color-accent-alt: var(--accent-alt);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/*
+ * The résumé's print skin.
+ *
+ * Not a second theme — the same tokens, redefined for a different medium. The
+ * PDF has to survive being printed on someone's office laser and forwarded
+ * through three inboxes, which a navy ground does not: it burns toner, greys
+ * out in draft mode, and reads as a gimmick rather than as a design decision.
+ *
+ * So the ground inverts and the accent darkens. #7fdbca on white is about
+ * 1.5:1 — unreadable as text — so the print scope carries a mint dark enough
+ * to pass AA, and the light mint survives only as rules and hairlines, which
+ * are non-text and not held to that ratio.
+ */
+.resume-print {
+  --background: #ffffff;
+  --surface: #f6f8fa;
+  --raised: #eef2f6;
+  --edge: #d8e0e8;
+  --edge-strong: #b9c6d2;
+  --band: #f6f8fa;
+
+  --foreground: #1c2b3a;
+  --heading: #011627;
+  --muted: #55697c;
+
+  /* Darkened mint: 5.04:1 on #ffffff, measured. The web scope's #7fdbca is
+     about 1.5:1 there — fine on navy, unreadable on paper. */
+  --accent: #0d7d6c;
+  --accent-alt: #1d4ed8;
+
+  /* The controls' dimension comes from shadows that only read on a dark
+     ground. On paper they print as grey smudges, so they are removed rather
+     than lightened. */
+  --shadow-control: none;
+  --shadow-control-hover: none;
+  --shadow-control-active: none;
+
+  background: var(--background);
+  color: var(--foreground);
+
+  /* The fix for the defect that made the old PDF fail automated parsing: its
+     fi/fl ligature glyphs had no text-layer mapping, so extraction produced
+     "Conict", "ltering" and "renement". No ligature is formed, so no
+     unmappable glyph can enter the text layer. */
+  font-variant-ligatures: none;
+}
+
+@media print {
+  /* The page canvas takes its background from `html`/`body` — never from the
+     element that happens to fill the page.
+   *
+   * `body` is painted #011627 for the site, and `printBackground: true`
+   * reproduced that faithfully: a navy canvas with the white `.resume-print`
+   * block floating on top of it, which reads as a black border inside every
+   * margin and a dark band below wherever the content stops. The margins were
+   * correct the whole time. They were just painted navy.
+   *
+   * Scoped with `:has()` rather than set unconditionally: an unscoped
+   * `body { background: #fff }` here would also apply when someone prints any
+   * other page of the site, where the text is light and would vanish. */
+  html:has(.resume-print),
+  html:has(.resume-print) body {
+    background: #ffffff;
+
+    /* The load-bearing half of this rule. `html { color-scheme: dark }` at the
+       top of this file tells the browser the document is dark, and the browser
+       then paints its own canvas #121212 underneath everything — a background
+       property does not override it, because it is not a background. It showed
+       up as a near-black band inside every margin and below the end of the
+       content, which looked exactly like a viewer artifact and was not one. */
+    color-scheme: light;
+  }
+
+  /* Chrome prints the ground only when told to; without this the PDF is the
+     right shape and entirely white. The build script also passes
+     printBackground, and both are required. */
+  .resume-print {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+
+    /* The page box already has a margin — the build script sets half an inch
+       on every side. The wrapper's own padding exists so this route is
+       readable in a browser, where there is no page box at all. Applying both
+       cost ~80px of column width and pushed every line into extra wrapping. */
+    padding: 0;
+
+    /* 100vh means nothing on paper. It was producing a trailing blank page. */
+    min-height: 0;
+  }
+
+  /* One lever for the whole document.
+   *
+   * Tailwind expresses both type sizes and spacing in rem, so moving the root
+   * size scales the text and the rhythm together and preserves every
+   * proportion the screen version was designed with — rather than shrinking
+   * the words and leaving the gaps between them at display scale.
+   *
+   * 16px is a comfortable reading size on a display and large-print on paper.
+   * Résumés set at roughly 9.5–10.5pt; this lands in that range. */
+  html {
+    font-size: 12.5px;
+  }
+
+  /* A heading must never be the last thing on a page.
+   *
+   * This replaces a `break-inside: avoid` that was applied to whole roles.
+   * The intent was right — bullets stranded under no company name are
+   * unreadable — but the rule was too blunt: a 550px block that refuses to
+   * split cannot fit in the room left at the foot of a page, so it moved to
+   * the next one whole and left a third of a page empty behind it. Three
+   * roles did that in sequence and turned a two-page document into five.
+   *
+   * So the bullets may flow across a boundary now. The heading above them
+   * may not be stranded. */
+  .resume-keep-with-next {
+    break-after: avoid;
+  }
+
+  /* Still used, but only on blocks that genuinely fit inside one page and
+     read as a single unit — the contact header, a product entry, education. */
+  .resume-avoid-break {
+    break-inside: avoid;
+  }
+
+  /* A bullet broken across two pages is the one split a reader cannot follow. */
+  li {
+    break-inside: avoid;
+  }
+
+  /* Paper is a different spacing budget from a screen.
+   *
+   * On screen the document breathes — there is no cost to a generous gap
+   * between sections, and it helps a reader scanning a long page. On paper
+   * every gap competes directly with whether the last block fits, and losing
+   * a whole sheet to four lines of education is a worse outcome than a
+   * slightly tighter rhythm.
+   *
+   * These two rules are worth about 30pt together, which is the difference
+   * between a two-page document and a two-page document with an orphan. */
+  .resume-stack {
+    gap: 1.5rem;
+  }
+
+  .resume-role {
+    padding-block: 1rem;
+  }
+
+  /* The tail sections — products and skills — tighten further than the rest.
+   *
+   * Deliberately not folded into `.resume-stack` above, which would loosen
+   * page one as well. The employment section is where a reader spends their
+   * attention and it keeps its rhythm; these two are scannable lists whose
+   * rows do not need the same air, and they are the last blocks in the
+   * document, so the space they give back is exactly the space the education
+   * block needs in order not to start a page of its own. */
+  .resume-tight-rows {
+    gap: 0.5rem;
+  }
+}
