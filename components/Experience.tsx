@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { StackBlock } from "@/components/resume/StackBlock";
 import { resume } from "@/content/resume";
 
 /** Nine years of employment, compressed to what a visitor needs before
@@ -57,18 +58,10 @@ export function Experience() {
                 items, and as one undifferentiated run they read as a wall to
                 skip, which is a waste: this line is the only place on the
                 home page where the professional technologies appear at
-                all. The labels cost a word each and turn the run into five
-                things a reader can scan for. */}
-            {role.stack ? (
-              <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs text-muted">
-                {role.stack.map((group) => (
-                  <li key={group.label}>
-                    <span className="text-accent">{group.label}</span>{" "}
-                    {group.items.join(" · ")}
-                  </li>
-                ))}
-              </ul>
-            ) : null}
+                all. One layer per line, through the same block the résumé
+                uses, so a label always starts a line and never lands
+                mid-row after the previous layer's last item. */}
+            {role.stack ? <StackBlock groups={role.stack} /> : null}
           </li>
         ))}
       </ol>

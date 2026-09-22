@@ -74,6 +74,7 @@ export default async function ProjectCaseStudy({
         <CaseStudyHeader
           title={study.title}
           platforms={study.platforms}
+          years={study.years}
           summary={study.summary}
         />
         {/* The product's own art, once, between the summary and the numbers.

@@ -59,48 +59,68 @@ export function TechStack({
           cells are the grid's own children; below sm the wrapper goes back to
           being a flex column and the label stacks above its values. */}
       <dl className="mt-3 flex flex-col gap-px overflow-hidden rounded-md border border-edge bg-edge sm:grid sm:grid-cols-[max-content_1fr]">
-        {groups.map((group) => (
-          <div key={group.label} className="flex flex-col gap-px sm:contents">
-            {/* Centred both ways from sm up, where the label is a cell in a
-                column beside centred values. Left-aligned and top-aligned it
-                read as a caption that had drifted — most visibly in a featured
-                card, where a layer whose values wrap makes the cell two lines
-                tall and the label sat against its top edge. Below sm the label
-                is a full-width row of its own, which is a group heading rather
-                than a cell, so it stays left. */}
-            <dt className="bg-surface px-3 py-2 font-mono text-xs text-accent sm:flex sm:items-center sm:justify-center sm:text-center">
-              {group.label}
-            </dt>
-            {/* `1fr` in the grid above, so a three-value layer takes exactly
-                as much width as a five-value one and the layers line up. */}
-            <dd className="min-w-0">
-              {/* The values are justified, not ragged. Their widths vary by a
-                  factor of three ("Skia" against "ASP.NET Core"), and at their
-                  natural widths the rows ended at three different places and
-                  read as clutter. `grow basis-26` instead packs each row with
-                  as many values as fit at ~6.5rem and then shares the leftover
-                  width between them, so every row ends flush with the panel.
+        {groups.map((group, index) => {
+          // Every other layer takes the stripe fill, and every layer after the
+          // first opens with a heavier rule. Without both, a layer whose
+          // values wrap onto a second line was indistinguishable from two
+          // layers: the rule between its lines was the same 1px gap as the
+          // rule between layers. The border sits on top of the gap, so the
+          // boundary between layers is 2px and one step brighter while the
+          // lines inside a layer stay hairlines. Below sm it belongs to the
+          // row wrapper, which holds the label above its values; from sm up
+          // the wrapper is `contents` and draws nothing, so the cells carry
+          // it instead.
+          const fill = index % 2 === 1 ? "bg-stripe" : "bg-surface";
+          const rowRule = index > 0 ? "border-t border-edge-strong" : "";
+          const cellRule = index > 0 ? "sm:border-t sm:border-edge-strong" : "";
+          return (
+            <div
+              key={group.label}
+              className={`flex flex-col gap-px sm:contents ${rowRule}`}
+            >
+              {/* Centred both ways from sm up, where the label is a cell in a
+                  column beside centred values. Left-aligned and top-aligned it
+                  read as a caption that had drifted — most visibly in a featured
+                  card, where a layer whose values wrap makes the cell two lines
+                  tall and the label sat against its top edge. Below sm the label
+                  is a full-width row of its own, which is a group heading rather
+                  than a cell, so it stays left. */}
+              <dt
+                className={`${fill} ${cellRule} px-3 py-2 font-mono text-xs text-accent sm:flex sm:items-center sm:justify-center sm:text-center`}
+              >
+                {group.label}
+              </dt>
+              {/* `1fr` in the grid above, so a three-value layer takes exactly
+                  as much width as a five-value one and the layers line up. */}
+              <dd className={`min-w-0 ${cellRule}`}>
+                {/* The values are justified, not ragged. Their widths vary by a
+                    factor of three ("Skia" against "ASP.NET Core"), and at their
+                    natural widths the rows ended at three different places and
+                    read as clutter. `grow basis-26` instead packs each row with
+                    as many values as fit at ~6.5rem and then shares the leftover
+                    width between them, so every row ends flush with the panel.
 
-                  A basis rather than a fixed number of columns because the
-                  panel's width changes twice (full-bleed on a phone, half the
-                  card on a wide screen) and a value never shrinks below its
-                  text — the number of lines follows the space available. On
-                  the case-study page there is room for a layer's values on one
-                  line; in a featured card the longer layers wrap, and the gap
-                  draws the rule between the lines. */}
-              <ul className="flex h-full flex-wrap gap-px">
-                {group.items.map((item) => (
-                  <li
-                    key={item}
-                    className="grow basis-26 bg-surface px-2 py-2 text-center font-mono text-xs whitespace-nowrap text-foreground"
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </dd>
-          </div>
-        ))}
+                    A basis rather than a fixed number of columns because the
+                    panel's width changes twice (full-bleed on a phone, half the
+                    card on a wide screen) and a value never shrinks below its
+                    text — the number of lines follows the space available. On
+                    the case-study page there is room for a layer's values on one
+                    line; in a featured card the longer layers wrap, and the gap
+                    draws the rule between the lines. */}
+                <ul className="flex h-full flex-wrap gap-px">
+                  {group.items.map((item) => (
+                    <li
+                      key={item}
+                      className={`grow basis-26 ${fill} px-2 py-2 text-center font-mono text-xs whitespace-nowrap text-foreground`}
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
+          );
+        })}
       </dl>
     </div>
   );

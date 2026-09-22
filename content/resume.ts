@@ -81,6 +81,9 @@ export type ProductEntry = {
      * because that list is read as places the thing runs, and a release
      * stage is not one of them. */
     status: string;
+    /** Same shape and renderer as an employer's dates, so the two sections
+     * cannot drift into different formats. */
+    dates: DateRange;
 };
 
 export type Education = {
@@ -128,13 +131,11 @@ export const resume = {
             location: "Minneapolis, MN",
             dates: { start: "July 2021", end: "Present" },
             summary:
-                "One of two senior developers on the team, owning client " +
-                "engagements end to end in a digital agency, from " +
-                "requirements through App Store release, while remaining " +
-                "roughly 90% hands-on.",
+                "One of two senior developers in a digital agency, leading " +
+                "client work while remaining roughly 90% hands-on.",
             bullets: [
                 "Own engagements from first client conversation through deployment: requirements gathering, solution design, effort estimation, and translation of an hour budget into a deliverable schedule up to a year ahead.",
-                "Shipped iOS applications to the App Store for agency clients, owned the process from development through the store publication process, across .NET MAUI and Expo / React Native.",
+                "Shipped iOS applications to the App Store for agency clients across .NET MAUI and Expo / React Native.",
                 "Designed a daily ETL pipeline linking multi-file XML exports into a relational model of roughly 20,000 products and 4.4M+ related records covering imagery, video, specifications and pricing, with checksum-based change detection so unchanged entities are never rewritten.",
                 "Cut catalog refresh downtime to under one second using SQL Server partition switching across production, staging and backup table triples, re-validating constraints after each swap and rolling back automatically when referential integrity fails.",
                 "Replaced a 2012-era jQuery storefront with a headless WordPress content layer injected into .NET MVC Razor views through a custom shortcode rendering engine, letting non-technical stakeholders manage pages, events, promotions and store updates without developer time.",
@@ -279,6 +280,7 @@ export const resume = {
                 },
             ],
             status: "In production",
+            dates: { start: "2024", end: "Present" },
         },
         {
             name: "Density Fitness",
@@ -296,6 +298,7 @@ export const resume = {
                 { label: "Android" },
             ],
             status: "In production",
+            dates: { start: "2026", end: "Present" },
         },
     ] satisfies ProductEntry[],
 

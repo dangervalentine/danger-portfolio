@@ -55,34 +55,43 @@ export function ResumeDocument() {
                     {product.name}
                   </h3>
                   {product.href ? <SourceDomain href={product.href} /> : null}
+                  {/* Beside the site rather than on a line of their own: a
+                      second header line per product was what pushed the
+                      document onto a third page. */}
+                  {/* Platform and link are one thing, not two: a store listing
+                      and the word for its platform are not separate facts, so
+                      the platform is the link. A platform with no listing yet
+                      renders as plain text, which is exactly why the links are
+                      underlined at rest: "iOS · Android · In production" is a
+                      row where some words go somewhere and some do not, and the
+                      accent alone is 1.46:1 against the rest of it. */}
+                  <p className="flex flex-wrap gap-x-2 font-mono text-xs text-muted">
+                    <span aria-hidden="true">&middot;</span>
+                    {product.platforms.map((platform, i) => (
+                      <span key={platform.label} className="flex gap-x-2">
+                        {i > 0 ? <span aria-hidden="true">&middot;</span> : null}
+                        {platform.href ? (
+                          <a
+                            href={platform.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-accent underline underline-offset-2"
+                          >
+                            {platform.label}
+                          </a>
+                        ) : (
+                          <span>{platform.label}</span>
+                        )}
+                      </span>
+                    ))}
+                    <span aria-hidden="true">&middot;</span>
+                    <span>{product.status}</span>
+                  </p>
                 </div>
-                {/* Platform and link are one thing, not two: a store listing
-                    and the word for its platform are not separate facts, so
-                    the platform is the link. A platform with no listing yet
-                    renders as plain text, which is exactly why the links are
-                    underlined at rest: "iOS · Android · In production" is a
-                    row where some words go somewhere and some do not, and the
-                    accent alone is 1.46:1 against the rest of it. */}
-                <p className="flex flex-wrap gap-x-2 font-mono text-xs text-muted">
-                  {product.platforms.map((platform, i) => (
-                    <span key={platform.label} className="flex gap-x-2">
-                      {i > 0 ? <span aria-hidden="true">&middot;</span> : null}
-                      {platform.href ? (
-                        <a
-                          href={platform.href}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-accent underline underline-offset-2"
-                        >
-                          {platform.label}
-                        </a>
-                      ) : (
-                        <span>{platform.label}</span>
-                      )}
-                    </span>
-                  ))}
-                  <span aria-hidden="true">&middot;</span>
-                  <span>{product.status}</span>
+                {/* Where an employer's dates sit, in the same format, so the
+                    two sections scan the same way down the right edge. */}
+                <p className="font-mono text-xs text-muted">
+                  {product.dates.start} &ndash; {product.dates.end}
                 </p>
               </div>
               <p className="mt-1 text-sm text-foreground">{product.description}</p>

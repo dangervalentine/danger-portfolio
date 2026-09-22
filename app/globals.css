@@ -19,6 +19,12 @@
      stop reading. */
   --band: #081f31;
 
+  /* One step above --surface, for alternate layers of the tech stack panel.
+     A layer whose values wrap is two rows of cells, and with every cell the
+     same fill a wrapped line read as a new layer. Striping by layer is what
+     groups them. */
+  --stripe: #0f2539;
+
   --foreground: #d6deeb;
   --heading: #ffffff;
   --muted: #8badc1;
@@ -57,6 +63,7 @@
   --color-edge: var(--edge);
   --color-edge-strong: var(--edge-strong);
   --color-band: var(--band);
+  --color-stripe: var(--stripe);
 
   --color-foreground: var(--foreground);
   --color-heading: var(--heading);
@@ -124,6 +131,7 @@ body {
   --edge: #d8e0e8;
   --edge-strong: #b9c6d2;
   --band: #f6f8fa;
+  --stripe: #eef2f6;
 
   --foreground: #1c2b3a;
   --heading: #011627;

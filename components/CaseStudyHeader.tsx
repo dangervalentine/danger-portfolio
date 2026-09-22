@@ -8,10 +8,12 @@ import Link from "next/link";
 export function CaseStudyHeader({
   title,
   platforms,
+  years,
   summary,
 }: {
   title: string;
   platforms: string[];
+  years: string;
   summary: string;
 }) {
   return (
@@ -30,6 +32,13 @@ export function CaseStudyHeader({
         </h1>
         <p className="font-mono text-xs text-accent sm:text-sm">
           {platforms.join(" · ")}
+          {/* Muted so the dates read as a second fact rather than a fourth
+              platform. */}
+          <span className="text-muted">
+            <span aria-hidden="true"> · </span>
+            <span className="sr-only">, </span>
+            {years}
+          </span>
         </p>
       </div>
       {/* Capped well short of the column: this is one sentence of orientation

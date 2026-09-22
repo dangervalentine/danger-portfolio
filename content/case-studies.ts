@@ -56,6 +56,9 @@ export type CaseStudy = {
     slug: string;
     title: string;
     platforms: string[];
+    /** When the product has been in development, as a date range written
+     * with an en dash: "2024 – Present". Shown beside the platforms. */
+    years: string;
     summary: string;
     /** Exactly six short capability phrases. Three columns on desktop and two
      * on a phone, so six fills both grids exactly; a seventh leaves a gap. */
@@ -74,6 +77,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         slug: "nextquest",
         title: "NextQuest",
         platforms: ["iOS", "Android", "Web"],
+        years: "2024 – Present",
         summary:
             "A game tracker for web, iOS and Android. One catalog, one library, one record of everything you have played.",
         highlights: [
@@ -320,6 +324,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         slug: "density-fitness",
         title: "Density Fitness",
         platforms: ["iOS", "Android", "Web"],
+        years: "2026 – Present",
         summary:
             "A strength-training app for web, iOS and Android. It works out the weight, the sets, the reps and the rest between them for every session.",
         highlights: [
