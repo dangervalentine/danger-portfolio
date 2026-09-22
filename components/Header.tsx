@@ -28,12 +28,19 @@ export function Header() {
       {/* Sans, not mono — this is a subtitle, not a label. */}
       <p className="mt-4 text-lg text-muted sm:text-xl">{site.tagline}</p>
       {/* Mono, because this one *is* a label: the stack, named where a reader
-          scanning for it will actually look. The dash is the accent's only
-          job here — it marks the turn from what the work is built with to
-          what became of it, without spending a colour on either half. */}
+          scanning for it will actually look. The colon is the accent's only
+          job here: it marks the turn from what the work is built with to what
+          became of it, without spending a colour on either half.
+
+          It was an em dash, which is the obvious mark for that turn and is
+          not one this site uses anywhere. A colon does the same work and sets
+          tighter, so it sits against the last technology instead of floating
+          in a space of its own. The middle dots between the technologies are
+          muted and this is not, which is what stops it reading as a fifth
+          separator. */}
       <p className="mt-3 font-mono text-[13px] text-muted">
-        {site.stackLine.technologies}{" "}
-        <span className="text-accent">&mdash;</span> {site.stackLine.outcome}
+        {site.stackLine.technologies}
+        <span className="text-accent">:</span> {site.stackLine.outcome}
       </p>
       {/* Flush left with the name above it — the buttons carry their own
           border, so unlike the bare icons they replaced there is no hit-area

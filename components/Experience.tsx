@@ -53,10 +53,21 @@ export function Experience() {
             <p className="mt-2 max-w-3xl text-sm leading-6 text-foreground">
               {role.summary ?? role.bullets[0]}
             </p>
+            {/* Grouped by layer rather than flattened. Creed's stack is 25
+                items, and as one undifferentiated run they read as a wall to
+                skip, which is a waste: this line is the only place on the
+                home page where the professional technologies appear at
+                all. The labels cost a word each and turn the run into five
+                things a reader can scan for. */}
             {role.stack ? (
-              <p className="mt-2 font-mono text-xs text-muted">
-                {role.stack.flatMap((group) => group.items).join(" · ")}
-              </p>
+              <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs text-muted">
+                {role.stack.map((group) => (
+                  <li key={group.label}>
+                    <span className="text-accent">{group.label}</span>{" "}
+                    {group.items.join(" · ")}
+                  </li>
+                ))}
+              </ul>
             ) : null}
           </li>
         ))}

@@ -54,12 +54,18 @@ export function ContactButton({
       // honestly nothing, and the plate says the rest.
       //
       // The state is real text rather than a title or an aria-label, so it
-      // survives everywhere: a screen reader announces "Résumé — coming
-      // soon", exactly as it does for an unreleased store badge.
+      // survives everywhere: a screen reader announces "Résumé, coming soon",
+      // exactly as it does for an unreleased store badge.
+      //
+      // A comma rather than the dash this used to carry. The dash was banned
+      // from the site's prose on sight, but it was the wrong mark here for a
+      // second reason: a comma is the one a screen reader actually renders,
+      // as the pause the sentence needs, where a dash is read as nothing or
+      // as the word.
       <span className={inertControlClass("lg", "w-full sm:w-auto")}>
         {mark}
         {text ?? link.label}
-        <span className="sr-only">&mdash; coming soon</span>
+        <span className="sr-only">, coming soon</span>
       </span>
     );
   }

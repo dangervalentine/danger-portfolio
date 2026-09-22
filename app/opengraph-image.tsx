@@ -33,17 +33,34 @@ export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 export const alt = `${site.name} · Senior Software Developer`;
 
+/** Ten technologies, at `OG_CHIP_LIMIT`: two rows that fit without shrinking
+ * the type, and past that the row is texture rather than information.
+ *
+ * Which ten changed when the résumé arrived. This row used to be the stack of
+ * the two applications the page below shows, which made the card claim a
+ * subset of a nine-year career: no Angular, no Node.js, no engine but
+ * PostgreSQL. It now spans both halves of the work (backend, web, mobile,
+ * data, platform) because a card in a feed is the first and often only thing
+ * a recruiter sees, and what it leaves out it is understood to lack.
+ *
+ * Nothing here is implied by anything else here, which is the rule that
+ * decides the last few slots. A card is a PNG: no crawler reads it and no ATS
+ * matches against it, so a chip earns its place only by telling a person
+ * something the chip beside it did not. That rules out C# next to .NET, Expo
+ * next to React Native, and ASP.NET Core next to both. All three are still on
+ * the page's `keywords` and the `Person`'s `knowsAbout`, where a machine does
+ * read and the redundancy is free. */
 const CHIPS = [
   ".NET",
-  "ASP.NET Core",
-  "PostgreSQL",
-  "Elasticsearch",
-  "Next.js",
-  "React",
-  "React Native",
-  "Expo",
+  "Node.js",
   "TypeScript",
-  "Docker",
+  "React",
+  "Angular",
+  "Next.js",
+  "React Native",
+  "PostgreSQL",
+  "SQL Server",
+  "Azure",
 ];
 
 export default function Image() {
@@ -86,8 +103,15 @@ export default function Image() {
             lineHeight: 1.45,
           }}
         >
-          Full-stack products shipped end to end across web, iOS and Android,
-          on one backend I build and run myself.
+          {/* The line said "on one backend I build and run myself", which was
+              true and was the wrong boast: it described someone working
+              alone, when the fact worth carrying is that the same engineer
+              does this inside a team on client engagements and again on his
+              own products. Both halves are named, in the order a reader
+              weighs them, and no first person: that was what made the old
+              line read as a hobby. */}
+          Nine years shipping production systems end to end: client
+          engagements and independent products, across web, iOS and Android.
         </div>
 
         <div style={{ ...OG_CHIP_ROW, marginTop: 44 }}>

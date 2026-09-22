@@ -1,3 +1,4 @@
+import { resume } from "@/content/resume";
 import { site } from "@/content/site";
 
 /** Schema.org JSON-LD.
@@ -9,35 +10,41 @@ import { site } from "@/content/site";
  * crawlers that increasingly do the first pass of a candidate search read
  * `knowsAbout` in preference to guessing a skill list out of the prose.
  *
- * `knowsAbout` is deliberately a superset of the chips rendered on the cards —
- * the cards are edited for a human reading two projects, this list is the
- * whole surface across all of them. Keep it honest: everything here appears
- * in one of the two shipped applications. */
-const KNOWS_ABOUT = [
-  ".NET",
-  "C#",
-  "ASP.NET Core",
-  "REST API design",
-  "TypeScript",
-  "JavaScript",
-  "React",
-  "Next.js",
-  "React Native",
-  "Expo",
-  "PostgreSQL",
-  "Elasticsearch",
-  "SQLite",
-  "SQL",
-  "Docker",
-  "Linux",
-  "Cloudflare",
+ * `knowsAbout` is the whole technical surface, and it is derived below rather
+ * than typed out here. */
+
+/** What the two shipped applications evidence and the résumé's skills matrix
+ * has no row for. These are product-level facts rather than lines on a
+ * toolkit, which is why they are not in `resume.skills` and are here. */
+const APP_KNOWS_ABOUT = [
   "Firebase Authentication",
   "Offline-first architecture",
   "Mobile application development",
   "iOS",
   "Android",
-  "HTML5 Canvas",
-  "Accessibility",
+];
+
+/** The `Person`'s `knowsAbout`, derived from the résumé.
+ *
+ * This was a hand-written list under the rule "everything here appears in one
+ * of the two shipped applications", which was the honest bound while those
+ * two applications were the only thing the site could evidence. `/resume` now
+ * ships on this domain carrying nine years of employment, so the bound is the
+ * résumé's own skills matrix, and deriving it is what stops the two drifting
+ * apart the next time a row there changes. It goes from 24 terms to every
+ * technology of a nine-year career, which is the point: this is the field an
+ * LLM crawler reads in preference to guessing a skill list out of the prose,
+ * and it was claiming a fraction of the truth.
+ *
+ * Trailing parentheticals are stripped: "Accessibility (WCAG)" is written
+ * for a person, "Accessibility" is what a machine matches on. */
+const KNOWS_ABOUT = [
+  ...new Set([
+    ...resume.skills.flatMap((group) =>
+      group.items.map((item) => item.replace(/\s*\(.*\)$/, "")),
+    ),
+    ...APP_KNOWS_ABOUT,
+  ]),
 ];
 
 /** The two projects that are real applications with their own URLs. The grid
@@ -68,14 +75,49 @@ const APPLICATIONS = [
 ];
 
 export function StructuredData() {
+  // Found by its own end date rather than by position in the list. The list
+  // happens to be ordered by recency, and nothing enforces that.
+  const currentRole = resume.engagements.find(
+    (role) => role.dates.end === "Present",
+  );
+  // `resume.location` is "City, ST". A shape it stops having leaves `region`
+  // undefined, which JSON.stringify drops from the node rather than emitting
+  // as a wrong answer.
+  const [locality, region] = resume.location.split(", ");
+
   const graph = [
     {
       "@type": "Person",
       "@id": `${site.url}/#person`,
       name: site.name,
       jobTitle: site.tagline,
+      // The résumé's opening paragraph, which is the one sentence written to
+      // state the shape of the whole career. Nothing else on this node said
+      // how long any of it had been going on.
+      description: resume.summary,
       url: site.url,
       email: `mailto:${site.email}`,
+      // Recruiter search is substantially geographic, and the city was
+      // machine-readable nowhere, only as prose inside the availability line.
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: locality,
+        addressRegion: region,
+        addressCountry: "US",
+      },
+      ...(currentRole
+        ? {
+            worksFor: {
+              "@type": "Organization",
+              name: currentRole.company,
+              url: currentRole.href,
+            },
+          }
+        : {}),
+      alumniOf: {
+        "@type": "CollegeOrUniversity",
+        name: resume.education.institution,
+      },
       knowsAbout: KNOWS_ABOUT,
       sameAs: site.contact.map((link) => link.href),
     },

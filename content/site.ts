@@ -166,10 +166,23 @@ export const site = {
      * or React Native had to get as far as the first featured card to find
      * either. Two halves rather than one string because the dash between them
      * is the accent, and the split is where the sentence turns from what I
-     * build with to what came of it. */
+     * build with to what came of it.
+     *
+     * Node.js sits where PostgreSQL used to. Two backend ecosystems named
+     * side by side is the claim a single engine name cannot make, and it is
+     * not a claim the projects below can carry, since every one of them is
+     * .NET or nothing, so the hero is the only place it can be said. The four SQL
+     * engines are better served by the Data row in Experience, which has room
+     * to name all of them.
+     *
+     * "Nine years" is in the outcome half rather than the technology half
+     * because it is not a technology, and because that half was doing the
+     * least work: shipping to the two stores is true of both the products
+     * below and of client applications, and the years are what tells a reader
+     * there is a difference. */
     stackLine: {
-        technologies: ".NET · PostgreSQL · Next.js · React Native",
-        outcome: "shipped to the App Store and Google Play",
+        technologies: ".NET · Node.js · Next.js · React Native",
+        outcome: "nine years, shipped to the App Store and Google Play",
     },
     /** The line under the Contact heading: what I am looking for, where I am,
      * and whether where I am is a constraint.

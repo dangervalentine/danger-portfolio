@@ -204,7 +204,7 @@ try {
   } else {
     console.warn(
       `Skipping ${PRIVATE_OUT}: RESUME_PHONE is not set. Put it in ` +
-        `.env.local — see .env.example — and re-run if you need the copy ` +
+        `.env.local (see .env.example) and re-run if you need the copy ` +
         `that carries a number.`,
     );
   }

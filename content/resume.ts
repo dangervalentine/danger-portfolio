@@ -129,7 +129,8 @@ export const resume = {
             dates: { start: "July 2021", end: "Present" },
             summary:
                 "One of two senior developers on the team, owning client " +
-                "engagements end to end in a digital agency while remaining " +
+                "engagements end to end in a digital agency, from " +
+                "requirements through App Store release, while remaining " +
                 "roughly 90% hands-on.",
             bullets: [
                 "Own engagements from first client conversation through deployment: requirements gathering, solution design, effort estimation, and translation of an hour budget into a deliverable schedule up to a year ahead.",

@@ -16,11 +16,25 @@ const geistMono = Geist_Mono({
 /** One sentence, reused as the meta description and both social cards. Written
  * to name the stack rather than the job title: "Senior Software Developer" is
  * what every other portfolio says, and it is the technologies that a recruiter
- * search, an applicant tracking system and a link preview all key on. */
+ * search, an applicant tracking system and a link preview all key on.
+ *
+ * It describes the engineer, not this site's project list. It used to name
+ * only the four technologies the two featured applications are built with,
+ * which quietly made the showcase the ceiling on the claim: Angular, Node.js,
+ * .NET MAUI and four SQL engines are nine years of employment and appeared
+ * nowhere a crawler would find them.
+ *
+ * It runs long, 230 characters against the ~160 Google renders in a result
+ * and the ~200 a link preview shows, and that is the deliberate trade: the
+ * whole string is indexed and read by an ATS, only the display is cut. So the
+ * order is what matters. Everything that survives the shortest cut is the
+ * strongest half, and the terms most likely to be someone's exact search sit
+ * before the ones a reader would assume anyway. */
 const DESCRIPTION =
-  "Senior software developer building products end to end with .NET and " +
-  "PostgreSQL backends, Next.js web apps, and React Native mobile apps " +
-  "shipped to the App Store and Google Play.";
+  "Senior software developer, nine years building production systems end " +
+  "to end: .NET and Node.js backends across four SQL engines, React, " +
+  "Angular and Next.js clients, React Native and .NET MAUI apps on the " +
+  "App Store and Google Play.";
 
 const TITLE = `${site.name} · Senior Software Developer`;
 
@@ -30,18 +44,30 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: TITLE,
   description: DESCRIPTION,
+  /* Grouped by layer in source order (backend, web, mobile, data, platform,
+     role) so that adding one lands beside its peers rather than at the end.
+     The professional half of the stack was missing outright: Angular, Node.js,
+     .NET MAUI, and the three engines that are not PostgreSQL. */
   keywords: [
     ".NET",
     "C#",
     "ASP.NET Core",
+    "Node.js",
     "TypeScript",
     "React",
     "Next.js",
+    "Angular",
     "React Native",
     "Expo",
+    ".NET MAUI",
     "PostgreSQL",
+    "SQL Server",
+    "Oracle",
     "Elasticsearch",
     "Docker",
+    "Azure",
+    "AWS",
+    "senior software developer",
     "full-stack developer",
   ],
   authors: [{ name: site.name, url: site.url }],
