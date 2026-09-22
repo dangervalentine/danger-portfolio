@@ -16,6 +16,12 @@ import { domainFrom } from "@/components/resume/domain";
  * real link annotation, and it now also survives being printed on paper,
  * which a bare styled name did not.
  *
+ * Underlined at rest rather than on hover. The dash and the domain sit in
+ * one run of muted text, so the accent is the only thing marking half of it
+ * as a link: 1.46:1 against that text on screen and 1.13:1 in the print
+ * scope, where WCAG 1.4.1 wants 3:1 before colour may carry the job alone.
+ * Paper has no hover, and a greyscale printer has no accent.
+ *
  * The dash is `aria-hidden`: it is typography, and a screen reader that
  * announces it reads "Creed Interactive dash creedinteractive.com". */
 export function SourceDomain({ href }: { href: string }) {
@@ -26,7 +32,7 @@ export function SourceDomain({ href }: { href: string }) {
         href={href}
         target="_blank"
         rel="noreferrer"
-        className="text-accent underline-offset-2 hover:underline"
+        className="text-accent underline underline-offset-2"
       >
         {domainFrom(href)}
       </a>

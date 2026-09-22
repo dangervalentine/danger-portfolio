@@ -51,7 +51,11 @@ export function ResumeHeader() {
             annotations. The previous résumé contained no URLs at all, which
             left its central claim — shipped to both stores — unverifiable
             from the document a recruiter actually holds. */}
-        <a href={site.url} className="text-accent underline-offset-2 hover:underline">
+        {/* Underlined at rest: this line is a run of plain spans with
+            links mixed into it, and the accent is 1.46:1 against the muted
+            text beside it, so colour cannot be the only thing that says
+            which half is clickable. The PDF is the case that settles it. */}
+        <a href={site.url} className="text-accent underline underline-offset-2">
           {site.url.replace("https://", "")}
         </a>
         {/* The mark, then the username — not the platform's name. "GitHub"
@@ -68,7 +72,7 @@ export function ResumeHeader() {
               href={link.href}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-accent underline-offset-2 hover:underline"
+              className="inline-flex items-center gap-1.5 text-accent underline underline-offset-2"
             >
               {path ? (
                 <svg

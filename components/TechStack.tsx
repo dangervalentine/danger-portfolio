@@ -40,7 +40,15 @@ export function TechStack({
       : "font-mono text-xs uppercase tracking-widest text-muted";
 
   return (
-    <section className="mt-5" aria-label="Tech stack">
+    /* A plain wrapper, not a labelled <section>. A <section> with an
+       accessible name is a landmark, and this panel was claiming one twice on
+       the home page, where both featured cards render it, and claiming a
+       second one inside the case study's own section. Two landmarks called
+       "Tech stack" are two identical entries in a screen reader's landmark
+       list and no way to tell them apart; the heading below already puts the
+       panel in the document outline, which is where a panel inside a card
+       belongs. */
+    <div className="mt-5">
       <Heading className={headingClass}>Tech stack</Heading>
       {/* One grid for the whole panel from sm up, rather than a flex row per
           layer: the label column is sized once, by `max-content`, so it is as
@@ -94,6 +102,6 @@ export function TechStack({
           </div>
         ))}
       </dl>
-    </section>
+    </div>
   );
 }

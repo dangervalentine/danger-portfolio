@@ -75,9 +75,12 @@ export function Experience() {
 
       <p className="mt-8 font-mono text-[13px] text-muted">
         Full history, independent products and the complete stack on the{" "}
+        {/* Underlined at rest. A link sitting inside a sentence cannot be
+            marked by colour alone (WCAG 1.4.1) unless it clears 3:1 against
+            the text around it, and mint on muted is 1.46:1. */}
         <Link
           href="/resume"
-          className="text-accent underline-offset-2 hover:underline"
+          className="text-accent underline underline-offset-2"
         >
           résumé
         </Link>

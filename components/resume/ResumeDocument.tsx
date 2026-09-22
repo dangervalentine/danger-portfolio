@@ -59,7 +59,10 @@ export function ResumeDocument() {
                 {/* Platform and link are one thing, not two: a store listing
                     and the word for its platform are not separate facts, so
                     the platform is the link. A platform with no listing yet
-                    renders as plain text. */}
+                    renders as plain text, which is exactly why the links are
+                    underlined at rest: "iOS · Android · In production" is a
+                    row where some words go somewhere and some do not, and the
+                    accent alone is 1.46:1 against the rest of it. */}
                 <p className="flex flex-wrap gap-x-2 font-mono text-xs text-muted">
                   {product.platforms.map((platform, i) => (
                     <span key={platform.label} className="flex gap-x-2">
@@ -69,7 +72,7 @@ export function ResumeDocument() {
                           href={platform.href}
                           target="_blank"
                           rel="noreferrer"
-                          className="text-accent underline-offset-2 hover:underline"
+                          className="text-accent underline underline-offset-2"
                         >
                           {platform.label}
                         </a>

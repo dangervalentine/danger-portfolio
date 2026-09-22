@@ -96,6 +96,9 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
+    /* No `data-scroll-behavior` here: it is the opt-in that asks Next to
+       force `scroll-behavior: auto` around its own scrolling, and there is
+       no longer any smooth behaviour for it to override. See globals.css. */
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}

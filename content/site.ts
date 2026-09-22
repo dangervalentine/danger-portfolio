@@ -256,7 +256,7 @@ export const site = {
             // centre crop of the 280px band cuts through it.
             imageFocus: "center 38%",
             imageAlt:
-                "NextQuest promotional art: the wordmark beside the line “Every game, one place.” over a grid of game cover art.",
+                "NextQuest art: the wordmark and the line “Every game, one place.” over a grid of game covers.",
             liveHref: "https://nextquest.dev/",
             repoHref: "https://github.com/dangervalentine/NextQuestREADME",
         },
@@ -298,7 +298,7 @@ export const site = {
             // this one, with the app cards scattered below it.
             imageFocus: "center 30%",
             imageAlt:
-                "Density Fitness promotional art: the wordmark above the line “Everything and nothing else”, beside a scatter of app cards showing a 5/3/1 session, a plate calculator, a rest timer and a glossary entry.",
+                "Density Fitness art: the wordmark and the line “Everything and nothing else”, beside app screens.",
             liveHref: "https://density.dangervalentine.com",
             // The application itself is private; this is the public README
             // repository that documents it.
@@ -312,7 +312,7 @@ export const site = {
             tags: ["React Native", "TypeScript", "npm"],
             image: scrollTrackImg,
             imageAlt:
-                "react-native-scroll-track title art: the wordmark above a list tile with a mint scroll thumb on its track, a tap ripple further down the track with a dashed line showing the jump, and a faint compressed column beside it bracketing where the visible rows sit in the whole list.",
+                "react-native-scroll-track title art: the wordmark above a list with a mint thumb on its track.",
             liveHref: "https://www.npmjs.com/package/react-native-scroll-track",
             repoHref: "https://github.com/dangervalentine/react-native-scroll-track",
         },
@@ -348,7 +348,7 @@ export const site = {
             tags: ["JavaScript", "HTML", "CSS"],
             image: wordsWithJsImg,
             imageAlt:
-                "Words with JavaScript title art: the wordmark above a rack of mint letter tiles spelling REALLY, with three panels listing the six-, five- and four-letter words those tiles can play.",
+                "Words with JavaScript art: the wordmark above letter tiles spelling REALLY, beside word lists.",
             liveHref:
                 "https://dangervalentine.github.io/javascript-words-with-javascript/",
             repoHref:
@@ -410,7 +410,7 @@ export const site = {
             tags: ["React", "TypeScript", "Canvas", "Negamax"],
             image: connectFourImg,
             imageAlt:
-                "Connect Four title art: the wordmark CONNECT 4 in white above a mint rule and the line \"Minimax AI · React 19\", beside a dark slate board on its splayed stand holding a mid-game pyramid of glossy coral and mint discs, with CONNECT4 moulded in gold across its base.",
+                "Connect Four title art: the wordmark beside a slate board holding a mid-game pyramid of discs.",
             liveHref: "https://dangervalentine.github.io/react-connect4/",
             repoHref: "https://github.com/dangervalentine/react-connect4",
         },
@@ -434,7 +434,7 @@ export const site = {
             tags: ["JavaScript", "React", "Minimax"],
             image: ticTacToeImg,
             imageAlt:
-                "Minimax Tic-Tac-Toe title art: the wordmark TIC TAC TOE above a raised board panel holding a finished drawn game of five mint X marks and four coral O marks, each casting a soft shadow, with a faint search tree of miniature boards branching to scored leaves on either side and the line \"You cannot win · you can only draw\" beneath.",
+                "Minimax Tic-Tac-Toe title art: the wordmark above a drawn board, flanked by a faint search tree.",
             liveHref:
                 "https://dangervalentine.github.io/javascript-minimax-tic-tac-toe/",
             repoHref:
@@ -460,7 +460,7 @@ export const site = {
             tags: ["React", "Redux", "CSS"],
             image: simonSaysImg,
             imageAlt:
-                "Simon Says title art: the wordmark SIMON above SAYS in mint, beside a dark circular console with four coral, amber, mint and violet quadrant pads around a centre dial showing a lit score readout and a start switch.",
+                "Simon Says title art: the wordmark beside a round console of four coloured pads and a centre dial.",
             liveHref:
                 "https://dangervalentine.github.io/react-redux-simon-says/",
             repoHref:

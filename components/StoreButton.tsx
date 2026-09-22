@@ -64,7 +64,7 @@ export function StoreButton({ store }: { store: StoreLink }) {
   // is the tightest this button ever gets — the card has just gone
   // two-column, so each of the paired store buttons is only ~200px wide —
   // and the larger type needs every pixel of that back. The eyebrow is the
-  // exception; it is 10px throughout, see below.
+  // exception; it is 11px throughout, see below.
   const shape =
     "flex w-full items-center justify-center gap-3 rounded-lg border bg-[#010d17] px-4 py-2.5 lg:py-3";
 
@@ -85,9 +85,15 @@ export function StoreButton({ store }: { store: StoreLink }) {
         eyebrow: "text-white/55",
       }
     : {
+        // Dimmed, but still readable. These were /35 and /30, which measure
+        // 3.15:1 and 2.61:1 on the plate and miss the 4.5:1 that text this
+        // size owes. Nothing here is a real disabled control that the
+        // contrast rule would excuse: it is a span of ordinary text. /60 and
+        // /50 are 7.27:1 and 5.32:1, and against the live button's /90 and
+        // /55 they still read as the same plate switched off.
         edge: "border-white/10",
-        name: "text-white/35",
-        eyebrow: "text-white/30",
+        name: "text-white/60",
+        eyebrow: "text-white/50",
       };
 
   const markClass = `h-6 w-6 shrink-0 lg:h-7 lg:w-7 ${live ? "" : "opacity-30"}`;
@@ -121,12 +127,14 @@ export function StoreButton({ store }: { store: StoreLink }) {
   // text-colour utilities on one element resolve by stylesheet order rather
   // than by the order they are written in.
   //
-  // 10px at every width. At 9px, uppercased and tracked out to 0.14em, this
-  // line was under the size the rest of the site treats as its floor and it
-  // was the one piece of type on the card set below it — the eyebrow is half
-  // the badge silhouette, so it has to be readable to do its job.
+  // 11px at every width. This started at 9px, went to 10px, and is here now
+  // because 10px is still inside what an automated audit flags as very small
+  // text: the threshold is "10 pixels or smaller", so 10 was on the wrong
+  // side of it by one. The tracking comes back a notch to pay for the extra
+  // pixel, since "Download on the" is the widest line in the button and it
+  // may not wrap: 11px at 0.1em sets narrower than 10px at 0.14em did.
   const eyebrowClass =
-    "font-mono text-[10px] leading-none whitespace-nowrap tracking-[0.14em] uppercase";
+    "font-mono text-[11px] leading-none whitespace-nowrap tracking-[0.1em] uppercase";
 
   const contents = (
     <>

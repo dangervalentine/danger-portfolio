@@ -69,8 +69,32 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* There is deliberately no `scroll-behavior: smooth` here.
+ *
+ * It was added for one anchor, the nav's Projects link, and it read well on
+ * that one. What it missed is that in-page anchors are not the only thing
+ * moving this scroller. Two others do, and only one of them can be told not
+ * to animate:
+ *
+ * The router scrolls to the top of every new route. Next 16 jumps that one
+ * instead of animating it, but only when the document opts in with
+ * `data-scroll-behavior="smooth"` on <html>. Without the opt-in the router
+ * set scrollTop to 0, measured the page before the animation had moved
+ * anything, concluded the new route was still off screen and called
+ * `scrollIntoView()` on it. The second scroll won, so every navigation made
+ * from a scrolled position landed 61px down with the heading under the bar.
+ *
+ * The browser restores the scroll position on back and forward, and no
+ * attribute reaches that one. `history.scrollRestoration` is "auto", which
+ * leaves the restore to Chrome rather than to the router, and Chrome's
+ * restore obeys this property. Going back from the foot of a case study
+ * walked the viewport 2,493px up over 835ms while the reader sat and watched
+ * the home page scroll past.
+ *
+ * So every scroll on this site is a jump. If smooth is ever wanted again it
+ * has to be scoped to the element it is for rather than set on the root, and
+ * the layout attribute has to come back with it. */
 html {
-  scroll-behavior: smooth;
   color-scheme: dark;
 }
 
