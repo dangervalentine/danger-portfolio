@@ -57,9 +57,11 @@ export function FeaturedProject({
 
   return (
     <li
-      // Presses like a grid card now: the whole surface is a link to the live
-      // app — the same destination as the "Web App" button below — and it answers to the pointer the same way, lifting on
-      // hover while the accent ring stays reserved for keyboard focus.
+      // Presses like a grid card: the whole surface is a link, and it answers
+      // to the pointer the same way, lifting on hover while the accent ring
+      // stays reserved for keyboard focus. The link goes to the case study
+      // when there is one, so the card opens this site's page about the
+      // product; the live app stays one press away on the "Web App" button.
       className="group relative overflow-hidden rounded-lg border border-edge-strong bg-surface transition-transform duration-300 ease-out motion-safe:hover:-translate-y-1 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-accent"
     >
       {/* Three children, two rows. The left column stacks art over the store
@@ -117,15 +119,22 @@ export function FeaturedProject({
         <div className="flex flex-col p-6 lg:col-span-6 lg:col-start-7 lg:row-start-1 lg:row-span-2 lg:p-8">
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
             <h3 className="text-2xl font-bold tracking-tight text-heading sm:text-3xl">
-              {project.liveHref ? (
+              {/* Stretched link, as on the grid cards: the ::after covers the
+                  whole <li>, so pressing anywhere on the card that is not one
+                  of the controls below follows it. The visible focus ring
+                  lives on the <li>. */}
+              {project.slug ? (
+                <Link
+                  href={`/products/${project.slug}`}
+                  className="outline-none after:absolute after:inset-0 after:rounded-lg"
+                >
+                  {project.title}
+                </Link>
+              ) : project.liveHref ? (
                 <a
                   href={project.liveHref}
                   target="_blank"
                   rel="noreferrer"
-                  // Stretched link, as on the grid cards: the ::after covers
-                  // the whole <li>, so pressing anywhere on the card that is
-                  // not one of the controls below opens the live app. The
-                  // visible focus ring lives on the <li>.
                   className="outline-none after:absolute after:inset-0 after:rounded-lg"
                 >
                   {project.title}

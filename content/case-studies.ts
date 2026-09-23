@@ -21,6 +21,24 @@
  *     paths and infrastructure sizing stay in the repositories.
  */
 
+import type { StaticImageData } from "next/image";
+
+import densityEditorImg from "@/public/projects/density-fitness/desktop-editor.webp";
+import densityExerciseImg from "@/public/projects/density-fitness/desktop-exercise.webp";
+import densityLibraryImg from "@/public/projects/density-fitness/desktop-library.webp";
+import densityMobileImg from "@/public/projects/density-fitness/mobile-showcase.webp";
+import densityProgramsImg from "@/public/projects/density-fitness/desktop-programs.webp";
+import densityProgressImg from "@/public/projects/density-fitness/desktop-progress.webp";
+import densityRecordsImg from "@/public/projects/density-fitness/desktop-records.webp";
+import nextquestDiscoveryImg from "@/public/projects/nextquest/desktop-discovery.webp";
+import nextquestGamePageImg from "@/public/projects/nextquest/desktop-game-page.webp";
+import nextquestLibraryImg from "@/public/projects/nextquest/desktop-library.webp";
+import nextquestMobileImg from "@/public/projects/nextquest/mobile-showcase.webp";
+import nextquestNotesImg from "@/public/projects/nextquest/desktop-notes.webp";
+import nextquestQuizImg from "@/public/projects/nextquest/mobile-quiz.webp";
+import nextquestPlaythroughsImg from "@/public/projects/nextquest/desktop-playthroughs.webp";
+import nextquestStatsImg from "@/public/projects/nextquest/desktop-stats.webp";
+
 export type DiagramBox = { name: string; subtitle: string; chips?: string[] };
 
 /** One horizontal row of boxes inside a band. `rail` labels the line drawn
@@ -52,6 +70,18 @@ export type Exhibit = { title: string; problem: string; points: string[] };
  * "coming soon", a closed-source repository is not. */
 export type CaseStudyLink = { label: string; href?: string };
 
+/** One slide in the screenshot carousel. Every slide is a marketing frame
+ * with its own headline baked in, so there is no caption field: the alt text
+ * carries what the picture says to anyone who cannot see it. All 16:9: the
+ * stage is a fixed 16:9 frame and anything else would be letterboxed. */
+export type Screenshot = {
+    image: StaticImageData;
+    /** A name of a word or two, for the thumbnail under the slide and the
+     * button that selects it. The alt text is the full description. */
+    label: string;
+    alt: string;
+};
+
 export type CaseStudy = {
     slug: string;
     title: string;
@@ -68,6 +98,9 @@ export type CaseStudy = {
     decisions: Decision[];
     exhibits: Exhibit[];
     links: CaseStudyLink[];
+    /** Optional. A study with screenshots gets a carousel under "At a
+     * glance"; one without simply skips the section. */
+    screenshots?: Screenshot[];
 };
 
 /** Keyed by slug: the route reads this map directly, so adding a case study is
@@ -318,6 +351,48 @@ export const caseStudies: Record<string, CaseStudy> = {
                 href: "https://github.com/dangervalentine/NextQuestREADME",
             },
         ],
+        screenshots: [
+            {
+                image: nextquestLibraryImg,
+                label: "Library",
+                alt: "Library. Every game you own, sorted by status: a grid of cover art beside filters for playing, queued, finished, dropped and backlog.",
+            },
+            {
+                image: nextquestGamePageImg,
+                label: "Game pages",
+                alt: "Game pages. 400,000+ games, one page each: the page for Clair Obscur: Expedition 33 with its rating, release facts and a media gallery.",
+            },
+            {
+                image: nextquestMobileImg,
+                label: "iOS · Android",
+                alt: "iOS and Android. The same library, in your pocket: three phones showing a game page for Elden Ring, a stats screen and a year in review.",
+            },
+            {
+                image: nextquestDiscoveryImg,
+                label: "Discovery",
+                alt: "Discovery. What to play next, curated daily: the web discovery page with a featured game, community lists and a release calendar.",
+            },
+            {
+                image: nextquestPlaythroughsImg,
+                label: "Playthroughs",
+                alt: "Playthroughs. One game, many runs: two Elden Ring playthroughs, each with its own platform, dates, hours and status.",
+            },
+            {
+                image: nextquestNotesImg,
+                label: "Notes",
+                alt: "Notes. Plans, checklists and boss logs: Elden Ring notes grouped into a build plan, places to explore and a boss log.",
+            },
+            {
+                image: nextquestStatsImg,
+                label: "Stats",
+                alt: "Stats. Your play history, as data: hours played, completion rate, average rating and charts of library status and platforms.",
+            },
+            {
+                image: nextquestQuizImg,
+                label: "Daily quiz",
+                alt: "Daily quiz. A new trivia quiz every day: a phone asking who published Forza Horizon 5, with Xbox Game Studios marked correct.",
+            },
+        ],
     },
 
     "density-fitness": {
@@ -530,6 +605,43 @@ export const caseStudies: Record<string, CaseStudy> = {
             {
                 label: "Source",
                 href: "https://github.com/dangervalentine/DensityREADME",
+            },
+        ],
+        screenshots: [
+            {
+                image: densityProgramsImg,
+                label: "Programs",
+                alt: "Programs. Your next workout, planned: the active 5/3/1 Boring But Big program with its four sessions and the next session's lifts, sets and loads.",
+            },
+            {
+                image: densityEditorImg,
+                label: "Editor",
+                alt: "Program editor. Every lift, yours to edit: sessions and lifts in columns beside the bench press's training max, best set and a chart projecting the next three cycles.",
+            },
+            {
+                image: densityMobileImg,
+                label: "iOS · Android",
+                alt: "iOS and Android. In the gym, on your phone: three phones showing a bench press set with a rep counter and rest timer, progress stats and the program list.",
+            },
+            {
+                image: densityLibraryImg,
+                label: "Library",
+                alt: "Program library. Proven programs, explained: the 5/3/1 Boring But Big page with where it comes from, how it works, the muscles it trains and its progression over time.",
+            },
+            {
+                image: densityExerciseImg,
+                label: "Exercises",
+                alt: "Exercise history. One lift, its whole story: the barbell squat's training max, personal record and estimated max above a chart of every top set and the muscles it works.",
+            },
+            {
+                image: densityProgressImg,
+                label: "Progress",
+                alt: "Progress. Every rep, added up: over four million pounds of all-time volume beside workouts, total reps, heaviest set and week streak, above a strength trend chart.",
+            },
+            {
+                image: densityRecordsImg,
+                label: "Records",
+                alt: "Records. Every PR, dated: muscle coverage and volume by muscle group above a timeline of recent personal records and progress toward milestones.",
             },
         ],
     },

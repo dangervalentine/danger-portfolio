@@ -9,6 +9,7 @@ import { Decisions } from "@/components/Decisions";
 import { Exhibits } from "@/components/Exhibits";
 import { Highlights } from "@/components/Highlights";
 import { Nav } from "@/components/Nav";
+import { Screenshots } from "@/components/Screenshots";
 import { TechStack } from "@/components/TechStack";
 import { caseStudies } from "@/content/case-studies";
 import { site } from "@/content/site";
@@ -76,20 +77,27 @@ export default async function ProjectCaseStudy({
           platforms={study.platforms}
           years={study.years}
           summary={study.summary}
+          liveHref={project?.liveHref}
         />
-        {/* The product's own art, once, between the summary and the numbers.
+        {/* The product, once, between the summary and the numbers.
             This page opened on two paragraphs and a table of phrases: the
             reader arrives from a card that was three-quarters picture and
             lands somewhere with nothing to look at, and the thing the whole
             page is about goes unshown.
 
-            A band rather than the card's 16:9 frame — this is a beat between
+            A study with screenshots opens on them: the product working says
+            more than its cover art, and the two stacked put two pictures in a
+            row before the first claim. One without falls back to the band.
+
+            A band rather than the card's 16:9 frame: this is a beat between
             two blocks of text, not a second hero, and 280px is enough to show
             the composition without pushing "At a glance" under the fold on a
             laptop. `object-cover` with a per-project focus point, because
             these are designed pieces with a wordmark in them and the crop has
             to miss it; see `imageFocus` in content/site.ts. */}
-        {project ? (
+        {study.screenshots?.length ? (
+          <Screenshots title={study.title} screenshots={study.screenshots} />
+        ) : project ? (
           <div className="mx-auto mb-9 w-full max-w-6xl px-6">
             <div className="overflow-hidden rounded-[10px] border border-edge bg-surface">
               <Image

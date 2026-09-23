@@ -1,5 +1,8 @@
 import Link from "next/link";
 
+import { CONTROL_MARK, controlClass } from "@/components/controls";
+import { WEB_ICON_PATH } from "@/components/icons";
+
 /** The case study's opening block.
  *
  * Deliberately not a hero: the argument this page makes is in the numbers and
@@ -10,11 +13,16 @@ export function CaseStudyHeader({
   platforms,
   years,
   summary,
+  liveHref,
 }: {
   title: string;
   platforms: string[];
   years: string;
   summary: string;
+  /** The running web app. The card that links here used to go straight to
+   * it; now that it opens this page instead, the page has to offer the way
+   * on, and it does so up top rather than only in the footer. */
+  liveHref?: string;
 }) {
   return (
     <header className="mx-auto w-full max-w-6xl px-6 pt-10 pb-9">
@@ -44,6 +52,26 @@ export function CaseStudyHeader({
       {/* Capped well short of the column: this is one sentence of orientation
           and it should read as a line, not as a paragraph. */}
       <p className="mt-3 max-w-[760px] text-lg text-foreground">{summary}</p>
+      {liveHref ? (
+        <a
+          href={liveHref}
+          target="_blank"
+          rel="noreferrer"
+          className={controlClass("md", "mt-5")}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            className={`${CONTROL_MARK} h-4 w-4`}
+            fill="currentColor"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d={WEB_ICON_PATH} />
+          </svg>
+          Open the web app
+          <span className="sr-only"> (opens in a new tab)</span>
+        </a>
+      ) : null}
     </header>
   );
 }

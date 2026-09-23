@@ -10,6 +10,7 @@
     "resume": "npm run build && node scripts/build-resume.mjs"
   },
   "dependencies": {
+    "embla-carousel-react": "^8.6.0",
     "next": "16.3.5",
     "react": "19.2.8",
     "react-dom": "19.2.8"
