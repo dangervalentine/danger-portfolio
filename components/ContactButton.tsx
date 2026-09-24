@@ -11,10 +11,6 @@ import type { ContactLink } from "@/content/site";
  * section both render a row of these, so the same destinations look the same
  * in both places.
  *
- * The hero row says "Email"; the contact row spells the address out, because
- * down there the address itself is the information. `text` is that override —
- * the `label` stays the accessible name and the key the icon is looked up by.
- *
  * `lg` is the widest of the three control sizes: these are the only buttons
  * on the page that are not attached to a card, so nothing around them sets
  * their scale and they have to carry it themselves.
@@ -24,13 +20,7 @@ import type { ContactLink } from "@/content/site";
  *
  * A link with no `href` has nowhere to go yet and renders as a <span> rather
  * than an anchor — see below. */
-export function ContactButton({
-  link,
-  text,
-}: {
-  link: ContactLink;
-  text?: string;
-}) {
+export function ContactButton({ link }: { link: ContactLink }) {
   const path = CONTACT_ICONS[link.label];
   const pending = !link.href;
 
@@ -64,7 +54,7 @@ export function ContactButton({
       // as the word.
       <span className={inertControlClass("lg", "w-full sm:w-auto")}>
         {mark}
-        {text ?? link.label}
+        {link.label}
         <span className="sr-only">, coming soon</span>
       </span>
     );
@@ -81,12 +71,11 @@ export function ContactButton({
       href={link.href}
       {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
       // Full width while the rows are stacked; from sm up each takes only
-      // the width its own text needs, so the spelled-out email address in
-      // the contact section does not set the size of the two beside it.
+      // the width its own text needs.
       className={controlClass("lg", "w-full sm:w-auto")}
     >
       {mark}
-      {text ?? link.label}
+      {link.label}
     </a>
   );
 }

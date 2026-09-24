@@ -20,22 +20,14 @@ export function Contact() {
           The address used to sit above them as a plain link on a line of its
           own — it is much the longest of the three, and as loose text beside
           two buttons it read as a caption for them rather than as the first
-          thing to press.
+          thing to press. It now says "Email", as the hero's does.
 
-          It still spells the address out rather than saying "Email": this is
-          the contact section, and someone who wants to write from their own
-          client needs to be able to read and copy it.
-
-          Below sm each button takes the full width and the address stops
-          having to compete for room; from sm up they sit side by side and
-          take only the width their own text needs. */}
+          Below sm each button takes the full width; from sm up they sit side
+          by side and take only the width their own text needs. */}
       <ul className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4">
         {contactLinks.map((link) => (
           <li key={link.label}>
-            <ContactButton
-              link={link}
-              text={link.label === "Email" ? site.email : undefined}
-            />
+            <ContactButton link={link} />
           </li>
         ))}
       </ul>
