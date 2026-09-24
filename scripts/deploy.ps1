@@ -243,7 +243,13 @@ if ($SkipInstall) {
     Write-Host "  - -SkipInstall: leaving node_modules alone"
 } elseif ($needInstall) {
     Write-Host "  - lockfile changed (or node_modules missing) -- running npm ci"
-    Invoke-Checked -Exe "npm.cmd" -CmdArgs @("ci") -WorkDir $RepoDir -What "npm ci"
+    # --include=dev is load-bearing: npm derives its omit list from NODE_ENV, so
+    # on a box with NODE_ENV=production in the environment a plain npm ci drops
+    # every devDependency. tailwindcss and @tailwindcss/postcss live there, and
+    # step 4 would then fail on globals.css with
+    #     Cannot find module '@tailwindcss/postcss'
+    # Only the runtime does not need them. The build does.
+    Invoke-Checked -Exe "npm.cmd" -CmdArgs @("ci", "--include=dev") -WorkDir $RepoDir -What "npm ci"
     Write-Ok "dependencies installed"
 } else {
     Write-Ok "lockfile unchanged -- skipping npm ci"
