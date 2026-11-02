@@ -78,6 +78,7 @@ export default async function ProjectCaseStudy({
           years={study.years}
           summary={study.summary}
           liveHref={project?.liveHref}
+          siteHref={project?.siteHref}
         />
         {/* The product, once, between the summary and the numbers.
             This page opened on two paragraphs and a table of phrases: the

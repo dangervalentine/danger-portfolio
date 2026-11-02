@@ -19,6 +19,7 @@ no new fields. Every copy value below is a draft. It must be checked against
 | `status` | `"In development"` | |
 | `stores` | `[APP_STORE, GOOGLE_PLAY, { ...WEB_APP_BADGE }]`, none with `href` | R1. Every entry pending means the band shows the one coming-soon line. |
 | `liveHref` | absent | Add it when a public build exists; the card keeps linking to the case study. |
+| `siteHref` | `https://riftwyrm.dangervalentine.com` | The landing page, not the game: a "Website" button on the row and in the case-study header, and a live footer link. Never the Web App badge. |
 | `repoHref` | absent | the repository is private |
 | `note` | `"Private repository"` | R4 |
 | `image` | `riftwyrm.webp`, 1280 × 720 | |

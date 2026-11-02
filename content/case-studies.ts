@@ -811,6 +811,7 @@ export const caseStudies: Record<string, CaseStudy> = {
             { label: "App Store · coming soon" },
             { label: "Google Play · coming soon" },
             { label: "Web · coming soon" },
+            { label: "Website", href: "https://riftwyrm.dangervalentine.com" },
             { label: "Source · private repository" },
         ],
         // Made by the game's own screenshot tool from a seeded game the bot

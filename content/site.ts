@@ -127,6 +127,11 @@ export type Project = {
     imageSquare?: StaticImageData;
     /** The published/live version. The whole card links here. */
     liveHref?: string;
+    /** The product's own website, when it has one that is not the running
+     * app: a landing page with its privacy policy and support. Rendered as a
+     * "Website" button beside "How it's built" and in the case study's
+     * header, never as the "Web App" badge, which promises something to use. */
+    siteHref?: string;
     /** Source repository. Both card types render it as a "View repository"
      * button; where that button sits differs by card. */
     repoHref?: string;
@@ -336,6 +341,10 @@ export const site = {
             imageFocus: "center 50%",
             imageAlt:
                 "Riftwyrm art: the brass wordmark beside a dragon in its dimmed lair.",
+            // The landing page (with the privacy policy and support the
+            // stores ask for), not the game: the web build is still pending
+            // above.
+            siteHref: "https://riftwyrm.dangervalentine.com",
             // The game's source is private and has no public README repository.
             note: "Private repository",
         },

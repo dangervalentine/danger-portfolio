@@ -14,6 +14,7 @@ export function CaseStudyHeader({
   years,
   summary,
   liveHref,
+  siteHref,
 }: {
   title: string;
   platforms: string[];
@@ -23,6 +24,9 @@ export function CaseStudyHeader({
    * it; now that it opens this page instead, the page has to offer the way
    * on, and it does so up top rather than only in the footer. */
   liveHref?: string;
+  /** The product's own website, when it is not the app: offered the same
+   * way, beside the web app's button when there is one. */
+  siteHref?: string;
 }) {
   return (
     <header className="mx-auto w-full max-w-6xl px-6 pt-10 pb-9">
@@ -52,25 +56,49 @@ export function CaseStudyHeader({
       {/* Capped well short of the column: this is one sentence of orientation
           and it should read as a line, not as a paragraph. */}
       <p className="mt-3 max-w-[760px] text-lg text-foreground">{summary}</p>
-      {liveHref ? (
-        <a
-          href={liveHref}
-          target="_blank"
-          rel="noreferrer"
-          className={controlClass("md", "mt-5")}
-        >
-          <svg
-            viewBox="0 0 24 24"
-            className={`${CONTROL_MARK} h-4 w-4`}
-            fill="currentColor"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path d={WEB_ICON_PATH} />
-          </svg>
-          Open the web app
-          <span className="sr-only"> (opens in a new tab)</span>
-        </a>
+      {liveHref || siteHref ? (
+        <div className="mt-5 flex flex-wrap gap-3">
+          {liveHref ? (
+            <a
+              href={liveHref}
+              target="_blank"
+              rel="noreferrer"
+              className={controlClass("md")}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className={`${CONTROL_MARK} h-4 w-4`}
+                fill="currentColor"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d={WEB_ICON_PATH} />
+              </svg>
+              Open the web app
+              <span className="sr-only"> (opens in a new tab)</span>
+            </a>
+          ) : null}
+          {siteHref ? (
+            <a
+              href={siteHref}
+              target="_blank"
+              rel="noreferrer"
+              className={controlClass("md")}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className={`${CONTROL_MARK} h-4 w-4`}
+                fill="currentColor"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d={WEB_ICON_PATH} />
+              </svg>
+              Visit the website
+              <span className="sr-only"> (opens in a new tab)</span>
+            </a>
+          ) : null}
+        </div>
       ) : null}
     </header>
   );

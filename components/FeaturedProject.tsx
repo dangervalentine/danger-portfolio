@@ -2,6 +2,7 @@ import { getImageProps } from "next/image";
 import Link from "next/link";
 
 import { CONTROL_MARK, controlClass } from "@/components/controls";
+import { WEB_ICON_PATH } from "@/components/icons";
 import { ProjectSource } from "@/components/ProjectSource";
 import { StoreButton } from "@/components/StoreButton";
 import { TechStack } from "@/components/TechStack";
@@ -244,6 +245,28 @@ export function FeaturedProject({
                   />
                 </svg>
               </Link>
+            ) : null}
+            {/* A product site that is not the app itself (privacy, support,
+                news): the same kind of way further in, so the same skin. */}
+            {project.siteHref ? (
+              <a
+                href={project.siteHref}
+                target="_blank"
+                rel="noreferrer"
+                className={controlClass("md")}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className={`${CONTROL_MARK} h-4 w-4`}
+                  fill="currentColor"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path d={WEB_ICON_PATH} />
+                </svg>
+                Website
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
             ) : null}
             <ProjectSource project={project} size="md" />
           </div>
