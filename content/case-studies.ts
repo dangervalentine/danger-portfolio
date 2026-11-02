@@ -39,6 +39,7 @@ import nextquestQuizImg from "@/public/projects/nextquest/mobile-quiz.webp";
 import nextquestPlaythroughsImg from "@/public/projects/nextquest/desktop-playthroughs.webp";
 import nextquestStatsImg from "@/public/projects/nextquest/desktop-stats.webp";
 import riftwyrmAchievementsImg from "@/public/projects/riftwyrm/desktop-achievements.webp";
+import riftwyrmBestiaryImg from "@/public/projects/riftwyrm/desktop-bestiary.webp";
 import riftwyrmDragonsImg from "@/public/projects/riftwyrm/desktop-dragons.webp";
 import riftwyrmLeaderboardImg from "@/public/projects/riftwyrm/desktop-leaderboard.webp";
 import riftwyrmShowdownImg from "@/public/projects/riftwyrm/desktop-showdown.webp";
@@ -850,6 +851,11 @@ export const caseStudies: Record<string, CaseStudy> = {
                 image: riftwyrmAchievementsImg,
                 label: "Achievements",
                 alt: "Milestones worth chasing. The Achievements page: every achievement earned, each with its icon, what it asks for and the date it was earned.",
+            },
+            {
+                image: riftwyrmBestiaryImg,
+                label: "Bestiary",
+                alt: "Every creature in the game in one picture: four dragons of lightning, water, fire and shadow standing behind two ranks of sixteen enemies, among them a lion archer, a gnome with a flaming axe, a robed naga, a hooded goblin hexer and a horned brute.",
             },
         ],
     },

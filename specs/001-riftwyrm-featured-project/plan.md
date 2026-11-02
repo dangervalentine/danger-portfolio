@@ -46,7 +46,7 @@ portfolio size. They are converted to WebP and committed under
 - One project entry.
 - One case study.
 - Three images for the row and band: wide, square and OG fallback. (OG is drawn from text, so no image is needed.)
-- Six or seven carousel frames.
+- Eight carousel frames: the seven game screens and the bestiary composite.
 - Two small component edits.
 - One capture-class addition in the game repo.
 
