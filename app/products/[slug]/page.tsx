@@ -14,7 +14,7 @@ import { TechStack } from "@/components/TechStack";
 import { caseStudies } from "@/content/case-studies";
 import { site } from "@/content/site";
 
-/** Both pages are known at build time. `dynamicParams = false` below turns any
+/** Every page is known at build time. `dynamicParams = false` below turns any
  * other slug into a 404 rather than an attempt to render one. */
 export function generateStaticParams() {
   return Object.keys(caseStudies).map((slug) => ({ slug }));

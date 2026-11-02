@@ -35,12 +35,12 @@ const NEVER_CHANGES = () => () => {};
 const ON_CLIENT = () => true;
 const ON_SERVER = () => false;
 
-/** The bar's four links do not fit beside the wordmark on a phone. They used
+/** The bar's links do not fit beside the wordmark on a phone. They used
  * to cope by hiding the two case studies below `sm`, which left the mark and
  * two links — a bar that fit, at the cost of two destinations not existing at
  * all on the device most people arrive on.
  *
- * So below `sm` the whole row collapses into this: one button, and a drawer
+ * So below `md` the whole row collapses into this: one button, and a drawer
  * holding the same list at a size a thumb can actually hit.
  *
  * The panel is portalled to <body> rather than rendered where it sits. The
@@ -113,10 +113,10 @@ export function MobileNav({ links }: { links: MobileNavLink[] }) {
   }, [open]);
 
   /** A phone rotated into landscape, or a window dragged narrow and back,
-   * crosses `sm` with the drawer still open — and the button that closes it
+   * crosses `md` with the drawer still open — and the button that closes it
    * is hidden at that width. Close it on the way past. */
   useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 40rem)");
+    const desktop = window.matchMedia("(min-width: 48rem)");
     const sync = () => {
       if (desktop.matches) setOpen(false);
     };
@@ -138,7 +138,7 @@ export function MobileNav({ links }: { links: MobileNavLink[] }) {
         aria-label="Open menu"
         aria-expanded={open}
         aria-controls="site-menu"
-        className={`-mr-2 sm:hidden ${buttonClass}`}
+        className={`-mr-2 md:hidden ${buttonClass}`}
       >
         <svg
           viewBox="0 0 24 24"
@@ -160,7 +160,7 @@ export function MobileNav({ links }: { links: MobileNavLink[] }) {
              swapped in and out: a panel that only exists while open has
              nothing to slide from, and would arrive in place with a jump. */
           <div
-            className={`fixed inset-0 z-50 sm:hidden ${open ? "" : "pointer-events-none"}`}
+            className={`fixed inset-0 z-50 md:hidden ${open ? "" : "pointer-events-none"}`}
             inert={!open}
           >
             <button

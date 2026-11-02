@@ -27,6 +27,14 @@ export function FeaturedProject({
   // collapses to the web build and one line — see the grid below.
   const storesPending =
     stores.length > 0 && stores.every((store) => !store.href);
+  // "App Store & Google Play", or with a third, "App Store, Google Play & Web
+  // App": the line below names everything still to come, and a project with no
+  // live build lists its web build among them.
+  const pendingLabels = stores.map((store) => store.label);
+  const pendingLine =
+    pendingLabels.length > 1
+      ? `${pendingLabels.slice(0, -1).join(", ")} & ${pendingLabels.at(-1)}`
+      : pendingLabels.join("");
 
   const common = {
     alt: project.imageAlt ?? project.title,
@@ -285,14 +293,14 @@ export function FeaturedProject({
                     <StoreButton store={webApp} />
                   </div>
                 ) : null}
-                {/* The stores, as a line instead of as two buttons. Muted,
-                    not the buttons' dimmed white: this is a note about the
-                    card, and the badge livery is reserved for things that
-                    are, or will be, controls. The labels come from the store
-                    list so the line cannot drift from what is in it. */}
+                {/* The stores, as a line instead of as buttons. Muted, not
+                    the buttons' dimmed white: this is a note about the card,
+                    and the badge livery is reserved for things that are, or
+                    will be, controls. The labels come from the store list so
+                    the line cannot drift from what is in it, and that list
+                    can hold a pending web build when nothing is live yet. */}
                 <p className="text-center font-mono text-xs text-muted sm:col-span-2">
-                  {stores.map((store) => store.label).join(" & ")} &middot;
-                  coming soon
+                  {pendingLine} &middot; coming soon
                 </p>
               </>
             ) : (

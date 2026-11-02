@@ -11,7 +11,7 @@ import { navLinks, site } from "@/content/site";
  * would ship the whole content module — every project, every image import —
  * to the browser to do it.
  *
- * The drawer under `sm` is the one piece that has to be a client component,
+ * The drawer under `md` is the one piece that has to be a client component,
  * and it takes its links as plain serialisable data for the same reason. */
 export function Nav({ activeHref }: { activeHref?: string } = {}) {
   const linkClass =
@@ -65,10 +65,12 @@ export function Nav({ activeHref }: { activeHref?: string } = {}) {
           </span>
         </Link>
 
-        {/* From `sm` up, the row. All four fit: the name and the links
-            together need ~580px of the 640 the breakpoint hands over, which
-            is why the collapse happens here and not at `md`. */}
-        <ul className="hidden shrink-0 gap-6 font-mono text-sm sm:flex">
+        {/* From `md` up, the row. With three case studies the name and the
+            links together need ~680px, more than the 640 `sm` hands over:
+            there the name was clipping to "Victor Danger…" up to 700px. At
+            `md`'s 768 everything fits, so the drawer covers the band below
+            it. */}
+        <ul className="hidden shrink-0 gap-6 font-mono text-sm md:flex">
           {links.map((link) => (
             <li key={link.href}>
               <Link

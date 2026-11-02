@@ -9,6 +9,8 @@ import lumaImg from "@/public/projects/luma.webp";
 import nextquestImg from "@/public/projects/nextquest.webp";
 import nextquestSquareImg from "@/public/projects/nextquest-square.webp";
 import paletteProviderImg from "@/public/projects/palette-provider.webp";
+import riftwyrmImg from "@/public/projects/riftwyrm.webp";
+import riftwyrmSquareImg from "@/public/projects/riftwyrm-square.webp";
 import pixelateToolImg from "@/public/projects/pixelate-tool.webp";
 import scrollTrackImg from "@/public/projects/scroll-track.webp";
 import simonSaysImg from "@/public/projects/simon-says.webp";
@@ -78,8 +80,8 @@ export type Project = {
      * instead, which says the same thing with the layers kept apart. */
     tags?: string[];
     /** Promotes the project out of the grid into a full-width row with room for
-     * the longer copy below. Reserved for the two apps that are real efforts
-     * rather than weekend builds. */
+     * the longer copy below. Reserved for the products that are real efforts
+     * rather than weekend builds, released or not. */
     featured?: boolean;
     /** The full stack, grouped by layer. Featured rows only, where it stands in
      * for both the flat tag row and the second paragraph that used to sit here
@@ -102,8 +104,8 @@ export type Project = {
     /** Store buttons, featured rows only. */
     stores?: StoreLink[];
     /** Present when the project has a "How it's built" case study at
-     * `/products/<slug>`. Only the two featured applications have one — the
-     * grid cards are weekend builds with nothing to say at that length. */
+     * `/products/<slug>`. Only the featured products have one. The grid cards
+     * are weekend builds with nothing to say at that length. */
     slug?: string;
     /** Image shown in the card's band, relative to /public. Every project has
      * one, so the card renders it unconditionally. */
@@ -305,6 +307,39 @@ export const site = {
             repoHref: "https://github.com/dangervalentine/DensityREADME",
         },
         {
+            title: "Riftwyrm",
+            featured: true,
+            slug: "riftwyrm",
+            description:
+                "A solo fantasy card game for phones, tablets and the browser: build a hand, read the road ahead, and hunt four dragons across a broken land.",
+            engineering:
+                "seeded rules engine · playtest simulator · platform achievements, leaderboards and sync",
+            stack: [
+                { label: "Game", items: ["Godot", "GDScript"] },
+                {
+                    label: "Platform services",
+                    items: ["Game Center", "Google Play Games"],
+                },
+                { label: "Tooling", items: ["Python", "pytest"] },
+            ],
+            platforms: ["iOS", "Android", "Web"],
+            status: "In development",
+            // Nothing has a listing yet, the web build included, so every
+            // entry is pending and the band says so in one line. Going live is
+            // an edit here: `liveHref` for the web build (and drop the pending
+            // web entry), an `href` on a store.
+            stores: [APP_STORE, GOOGLE_PLAY, { ...WEB_APP_BADGE }],
+            image: riftwyrmImg,
+            imageSquare: riftwyrmSquareImg,
+            // The wordmark sits on the left of the middle line; a centre crop
+            // of the 280px band keeps it whole.
+            imageFocus: "center 50%",
+            imageAlt:
+                "Riftwyrm art: the brass wordmark beside a dragon in its dimmed lair.",
+            // The game's source is private and has no public README repository.
+            note: "Private repository",
+        },
+        {
             title: "Scroll Track",
             kind: "Package",
             description:
@@ -495,7 +530,7 @@ export const contactLinks: ContactLink[] = [
     { label: "Résumé", href: "/resume" },
 ];
 
-/** The two case studies, as the nav renders them between Projects and the
+/** The case studies, as the nav renders them between Projects and the
  * résumé.
  *
  * Short labels rather than the projects' own titles: the bar is the tightest
@@ -504,6 +539,7 @@ export const contactLinks: ContactLink[] = [
 export const caseStudyLinks: NavLink[] = [
     { label: "NextQuest", href: "/products/nextquest" },
     { label: "Density", href: "/products/density-fitness" },
+    { label: "Riftwyrm", href: "/products/riftwyrm" },
 ];
 
 /** Every destination in the nav bar, in order — one list, rendered twice: as

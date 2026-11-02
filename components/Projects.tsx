@@ -17,20 +17,22 @@ export function Projects() {
 
   return (
     // One section, two headed blocks. The nav's "Projects" link points at
-    // this id and lands on "Shipped products", which is the right first thing
+    // this id and lands on "Products", which is the right first thing
     // to see: the whole block is the work, and the split below is about what
     // kind of work it is, not about two separate parts of the page.
     <section id="projects" className="mx-auto w-full max-w-6xl px-6 py-16">
       {featured.length > 0 ? (
         <div id="products" className="mb-16">
-          {/* "Products" and "Projects" were a letter apart and meant almost
-              the same thing; "Shipped" and "Side" are the distinction the two
-              blocks were always drawing. */}
+          {/* "Products" against "Side projects". This was "Shipped products"
+              while every row had shipped; Riftwyrm has not, and the heading
+              was not going to claim otherwise. The bare "Products" that came
+              before it sat a letter away from a "Projects" heading, which the
+              second block no longer has. */}
           <h2 className="mb-8 text-3xl font-bold tracking-tight text-heading">
-            Shipped products
+            Products
           </h2>
-          {/* Things that ship: released applications with stores, a live URL
-              and a case study behind them. */}
+          {/* Real products, released or on the way: each with stores, a live
+              URL or both to come, and a case study behind it. */}
           <ul className="flex flex-col gap-6">
             {featured.map((project, index) => (
               <FeaturedProject

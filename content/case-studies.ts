@@ -38,6 +38,13 @@ import nextquestNotesImg from "@/public/projects/nextquest/desktop-notes.webp";
 import nextquestQuizImg from "@/public/projects/nextquest/mobile-quiz.webp";
 import nextquestPlaythroughsImg from "@/public/projects/nextquest/desktop-playthroughs.webp";
 import nextquestStatsImg from "@/public/projects/nextquest/desktop-stats.webp";
+import riftwyrmAchievementsImg from "@/public/projects/riftwyrm/desktop-achievements.webp";
+import riftwyrmDragonsImg from "@/public/projects/riftwyrm/desktop-dragons.webp";
+import riftwyrmLeaderboardImg from "@/public/projects/riftwyrm/desktop-leaderboard.webp";
+import riftwyrmShowdownImg from "@/public/projects/riftwyrm/desktop-showdown.webp";
+import riftwyrmTitleImg from "@/public/projects/riftwyrm/desktop-title.webp";
+import riftwyrmTrialImg from "@/public/projects/riftwyrm/desktop-trial.webp";
+import riftwyrmWonImg from "@/public/projects/riftwyrm/desktop-won.webp";
 
 export type DiagramBox = { name: string; subtitle: string; chips?: string[] };
 
@@ -642,6 +649,207 @@ export const caseStudies: Record<string, CaseStudy> = {
                 image: densityRecordsImg,
                 label: "Records",
                 alt: "Records. Every PR, dated: muscle coverage and volume by muscle group above a timeline of recent personal records and progress toward milestones.",
+            },
+        ],
+    },
+
+    riftwyrm: {
+        slug: "riftwyrm",
+        title: "Riftwyrm",
+        platforms: ["iOS", "Android", "Web"],
+        years: "2026 – Present",
+        summary:
+            "A solo fantasy card game for iOS, Android and the browser, inspired by solo tabletop card games like Dragons of Etchinstone. Every rule runs on the device.",
+        highlights: [
+            "Seeded, deterministic rules engine",
+            "Headless playtest simulator",
+            "Platform achievements and leaderboards",
+            "Progress sync with lossless merge",
+            "Touch, mouse, keyboard and controller",
+            "One UI across twelve screen shapes",
+        ],
+        diagram: [
+            {
+                label: "External · platform game services",
+                rows: [
+                    {
+                        boxes: [
+                            {
+                                name: "Game Center",
+                                subtitle:
+                                    "iOS sign-in, achievements, leaderboards, saved progress",
+                            },
+                            {
+                                name: "Google Play Games",
+                                subtitle:
+                                    "Android sign-in, achievements, leaderboards, saved progress",
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                label: "Client · one Godot project",
+                rail: "platform SDK · only when signed in",
+                rows: [
+                    {
+                        boxes: [
+                            { name: "Web", subtitle: "browser build" },
+                            { name: "Android", subtitle: "phones and tablets" },
+                            { name: "iOS", subtitle: "iPhone and iPad" },
+                        ],
+                    },
+                    {
+                        rail: "view state",
+                        boxes: [
+                            {
+                                name: "UI",
+                                subtitle:
+                                    "screens, a sequencer and an animator that render snapshots",
+                                chips: ["touch", "mouse", "keyboard", "controller"],
+                            },
+                        ],
+                    },
+                    {
+                        rail: "engine calls",
+                        boxes: [
+                            {
+                                name: "Rules engine",
+                                subtitle:
+                                    "a seeded state machine and a move advisor; never imports the UI",
+                            },
+                            {
+                                name: "Content",
+                                subtitle: "card data and the text store",
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                label: "Build time · never shipped",
+                rows: [
+                    {
+                        boxes: [
+                            {
+                                name: "Playtest simulator",
+                                subtitle: "thousands of seeded games, headless",
+                            },
+                            {
+                                name: "Test runner",
+                                subtitle: "unit tests and a UI walk at every screen shape",
+                            },
+                            {
+                                name: "Screenshot pipeline",
+                                subtitle: "store and portfolio images from a seeded win",
+                            },
+                        ],
+                    },
+                ],
+            },
+        ],
+        caption:
+            "The whole game runs on the device; the only thing it talks to is the platform's own game services, and only once the player signs in.",
+        decisions: [
+            {
+                claim: "The rules engine never imports the UI.",
+                why: "The simulator and the tests drive the same engine the player does, with nothing on screen.",
+            },
+            {
+                claim: "Every game term comes from one text store.",
+                why: "A wording change is one edit, and the screens cannot drift from the rules text.",
+            },
+            {
+                claim: "Progress merges as a union, never by picking a side.",
+                why: "Two copies combine in any order, any number of times, and nothing earned is lost.",
+            },
+        ],
+        exhibits: [
+            {
+                title: "Achievements and leaderboards without a server",
+                problem:
+                    "Players expect their wins on the platform's own boards, but the game has no backend and must work fully signed out.",
+                points: [
+                    "Puts sign-in, achievements, leaderboards and saved progress behind one seam, with a Game Center and a Google Play Games backend.",
+                    "Gives web and desktop builds a backend that does nothing, so no platform code loads there.",
+                    "Treats every platform failure as a warning, so a game is never interrupted by the network.",
+                ],
+            },
+            {
+                title: "Progress that follows the player",
+                problem:
+                    "A signed-in player's unlocks, lessons and records must reach a new device, and two devices played offline must not lose each other's games.",
+                points: [
+                    "Keeps one progress document in the player's Game Center or Google Play Games account.",
+                    "Combines the device's copy with the account's as a union, so each achievement keeps its earliest date.",
+                    "Marks failed work as still to do and retries at the next sign-in, finished game or resume.",
+                ],
+            },
+            {
+                title: "Balancing four dragons by machine",
+                problem:
+                    "A person can play a handful of games a day, far too few to tell bad luck from a hard dragon.",
+                points: [
+                    "Replays any game exactly from its seed, because every shuffle comes from one saved random generator.",
+                    "Plays thousands of headless games with bots of rising skill and reports win rates per difficulty and dragon.",
+                    "Sets the dragons' unlock order from easiest to hardest by those results, and fits the in-game advice from them.",
+                ],
+            },
+            {
+                title: "One screen layout for every device",
+                problem:
+                    "The same game has to fit a small phone, a tablet, an ultrawide monitor and a handheld, by touch or with a controller.",
+                points: [
+                    "Solves the layout from the window for twelve screen shapes, from a small phone to an ultrawide desktop.",
+                    "Walks the real UI at every shape in the test suite, failing on undersized tap targets or text.",
+                    "Drives every control by touch, mouse, keyboard or controller through one focus ring.",
+                ],
+            },
+        ],
+        links: [
+            { label: "App Store · coming soon" },
+            { label: "Google Play · coming soon" },
+            { label: "Web · coming soon" },
+            { label: "Source · private repository" },
+        ],
+        // Made by the game's own screenshot tool from a seeded game the bot
+        // really wins, so a rerun shows the same moments
+        // (specs/001-riftwyrm-featured-project, research R9).
+        screenshots: [
+            {
+                image: riftwyrmTitleImg,
+                label: "Title",
+                alt: "Hunt a dragon across a riven land. The landing page: the Riftwyrm wordmark and the buttons Play, Learn to Play, Leaderboard, Achievements and Glossary, beside a fire dragon with spread wings.",
+            },
+            {
+                image: riftwyrmTrialImg,
+                label: "A trial",
+                alt: "Meet every Trial with the cards you hold. A Trial in the second Region: the challenge card on the left, four cards in hand set out as Backup, Element, Spell and Boost, and the Meld, Detour and Play buttons.",
+            },
+            {
+                image: riftwyrmDragonsImg,
+                label: "Dragons",
+                alt: "Four dragons, each its own hunt. The dragon choice: the water dragon's speed, attack, armour and its stats for each stage, beside a list of all four dragons.",
+            },
+            {
+                image: riftwyrmShowdownImg,
+                label: "Showdown",
+                alt: "Stand and fight in the Showdown. The final battle against the fire dragon: its approach card on the left and two rows of cards played against it.",
+            },
+            {
+                image: riftwyrmWonImg,
+                label: "Victory",
+                alt: "Bring the dragon down. A won game's ending: the fire dragon defeated on Normal in 13:42, a score of 46 broken down by card level, and a new best on the Leaderboard.",
+            },
+            {
+                image: riftwyrmLeaderboardImg,
+                label: "Leaderboard",
+                alt: "Every win, ranked. The Leaderboard on Normal: eight wins across all four dragons, ranked by score, with each game's time and date.",
+            },
+            {
+                image: riftwyrmAchievementsImg,
+                label: "Achievements",
+                alt: "Milestones worth chasing. The Achievements page: every achievement earned, each with its icon, what it asks for and the date it was earned.",
             },
         ],
     },
