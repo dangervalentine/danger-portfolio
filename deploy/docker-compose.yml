@@ -1,11 +1,17 @@
-# The portfolio on the remote server (root@91.99.62.133), beside NextQuest. It joins
-# NextQuest's docker network so NextQuest's Caddy, which owns ports 80 and 443, can
-# forward dangervalentine.com (and www, redirected) to it by name; no port is open to
-# the world. The loopback port is for curl on the server.
+# The portfolio on the remote server (root@91.99.62.133), beside NextQuest. It joins the
+# `edge` network so the server's Caddy (server-edge), which owns ports 80 and 443, can
+# forward dangervalentine.com (and www, redirected) to it by name; no port is open to the
+# world. The loopback port is for curl on the server.
 #
 # On the server, in /opt/danger-portfolio (deploy.sh puts it there):
 #   docker compose -f deploy/docker-compose.yml up -d --build
 name: danger-portfolio
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
 
 services:
   web:
@@ -14,10 +20,11 @@ services:
     container_name: portfolio_web
     ports:
       - "127.0.0.1:5100:3100"
-    networks: [nextquest_network]
+    networks: [edge]
+    logging: *default-logging
     mem_limit: 384m
     restart: unless-stopped
 
 networks:
-  nextquest_network:
-    external: true
+  edge:
+    external: true   # owned by server-edge (/opt/edge)
