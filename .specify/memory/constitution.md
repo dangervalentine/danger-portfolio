@@ -77,10 +77,10 @@ being shown.
 
 - Stack: Next.js 16, React 19, TypeScript (strict), Tailwind CSS 4, ESLint
   (`eslint-config-next`). New tooling MUST fit this stack rather than replace it.
-- Deployment: `scripts/deploy.ps1` runs on a Windows production box (PowerShell 5.1
-  compatible: no `&&`/`||`, ternary, or null-coalescing). It pulls, builds, and
-  restarts the app on port 3100 behind cloudflared. Changes to that script MUST keep
-  PS 5.1 compatibility, and the port MUST match the cloudflared ingress.
+- Deployment: a push to `main` runs `.github/workflows/deploy.yml`, which builds the
+  Docker image and has the remote server run it on port 3100 behind its Caddy (the
+  `server-edge` repository). The port MUST match `server-edge`'s
+  `sites/danger-portfolio.caddy`.
 - `main` is the deploy branch; it MUST always build.
 
 ## Development Workflow & Quality Gates
